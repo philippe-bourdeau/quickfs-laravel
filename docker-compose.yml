@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  php-fpm:
+    container_name: php-fpm
+    build:
+      context: docker/php-fpm
+      args:
+        XDEBUG_ON: 1
+    restart: unless-stopped
+    volumes:
+      - .:/var/www/html
+  php-cli:
+    container_name: php-cli
+    build:
+      context: docker/php-cli
+    volumes:
+      - .:/var/www/html
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    depends_on:
+      - php-fpm
+    ports:
+      - '8080:80'
+      - '4443:443'
+    volumes:
+      - ./docker/nginx/dev.fpm.conf:/etc/nginx/nginx.conf
+      - .:/var/www/html
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: unless-stopped
+    volumes:
+      - /data
+  mysql:
+    container_name: mysql
+    image: 'mysql:8.0'
+    ports:
+      - '3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+    volumes:
+      - "mysql:/var/lib/mysql"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}" ]
+      retries: 3
+      timeout: 5s
+  node-cli:
+    container_name: node-cli
+    build:
+      context: docker/node-cli
+volumes:
+    mysql:
