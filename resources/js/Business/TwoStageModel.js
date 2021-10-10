@@ -39,12 +39,19 @@ class TwoStageModel {
         ) * this.terminal_multiple
     }
 
-    get presentValue() {
+    /**
+     *
+     * @param iteration
+     * @returns {number|*}
+     */
+    presentValue(iteration) {
         if (!this.include_present_value) {
             return 0
         }
 
+        let projected = this.projectedValue(iteration)
 
+        return compound(projected, - iteration, this.discount_rate)
     }
 
     /**

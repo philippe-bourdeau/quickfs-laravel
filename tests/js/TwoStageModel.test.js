@@ -30,3 +30,18 @@ test('Find value in 7 years', () => {
 
     expect(lodash.round(model.projectedValue(7),2 )).toBe(70.20);
 });
+
+test('Present value for year 9', () => {
+    const model = new TwoStageModel(
+        0.64,
+        20,
+        15,
+        true,
+        15,
+        5,
+        10,
+        4
+    )
+
+    expect(lodash.round(model.presentValue(9),2 )).toBe(0.54);
+});
