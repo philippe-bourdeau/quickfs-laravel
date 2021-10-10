@@ -82,10 +82,31 @@ class TwoStageModel {
     }
 
     /**
-     *
+     * @returns {number}
      */
-    get intrinsicValue() {
+    presentValueTerminal () {
+        return this.terminalValue * (1 + this.discount_rate/100) ** -10
+    }
 
+    /**
+     * Yields the number we are looking for
+     *
+     * Either per/share or market cap
+     * @returns {number}
+     */
+    intrinsicValue() {
+        if (!this.include_present_value) {
+            return this.presentValueTerminal()
+        }
+
+        console.log('here')
+
+        let sum = this.presentValueTerminal()
+        for (let i = 1; i <= 10; i++) {
+            sum += this.presentValue(i)
+        }
+
+        return sum
     }
 }
 

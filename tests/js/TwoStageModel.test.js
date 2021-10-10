@@ -45,3 +45,51 @@ test('Present value for year 9', () => {
 
     expect(lodash.round(model.presentValue(9),2 )).toBe(0.54);
 });
+
+test('Present value for year 9', () => {
+    const model = new TwoStageModel(
+        0.64,
+        20,
+        15,
+        true,
+        15,
+        5,
+        10,
+        4
+    )
+
+    expect(lodash.round(model.presentValue(9),2 )).toBe(0.54);
+});
+
+test('Intrinsic value with include present value (dividends)', () => {
+    const model = new TwoStageModel(
+        0.64,
+        20,
+        15,
+        true,
+        15,
+        5,
+        10,
+        5
+    )
+
+    expect(lodash.round(model.intrinsicValue(), 2)).toBe(15.32);
+});
+
+test('Intrinsic value with no present value (growth stocks)', () => {
+    const model = new TwoStageModel(
+        34.15,
+        60,
+        10,
+        false,
+        12,
+        5,
+        8,
+        5
+    )
+
+    expect(lodash.round(model.intrinsicValue(), 2)).toBe(1894.09);
+});
+
+
+
