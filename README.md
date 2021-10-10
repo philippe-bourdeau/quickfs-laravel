@@ -9,10 +9,11 @@ source ./docker/bin/tools.sh
 * Jump into the cli container to interact with the code base (cli-sh)
 * Manage docker containers
 
-# Onboarding
+# Onboarding and cli common operations
 
 ```sh
-composer install
+composer install;
+npm test;
 ```
 
 # Handling views

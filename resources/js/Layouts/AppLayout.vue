@@ -13,7 +13,7 @@
                             <!-- Logo -->
                             <div class="flex-shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
-                                    <jet-application-mark class="block h-9 w-auto" />
+                                    <jet-application-logo class="block h-9 w-auto" />
                                 </Link>
                             </div>
 
@@ -233,6 +233,7 @@
 
 <script>
     import { defineComponent } from 'vue'
+    import JetApplicationLogo from '@/Jetstream/ApplicationLogo.vue'
     import JetApplicationMark from '@/Jetstream/ApplicationMark.vue'
     import JetBanner from '@/Jetstream/Banner.vue'
     import JetDropdown from '@/Jetstream/Dropdown.vue'
@@ -248,6 +249,7 @@
 
         components: {
             Head,
+            JetApplicationLogo,
             JetApplicationMark,
             JetBanner,
             JetDropdown,
