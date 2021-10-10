@@ -8,19 +8,20 @@ function compound(value, iterations, rate) {
  * @param data
  * @returns {*}
  */
-function two_stage_model(data) {
+function two_stage_model_compounding(data) {
     const first_stage = compound(
         data.value,
         data.first_stage.iterations,
         data.first_stage.rate
     )
 
-    return first_stage + compound(
+    return compound(
         first_stage,
         data.second_stage.iterations,
         data.second_stage.rate
     )
 }
 
-exports.compound = compound;
+exports.compound = compound
+exports.two_stage_model_compounding = two_stage_model_compounding
 
