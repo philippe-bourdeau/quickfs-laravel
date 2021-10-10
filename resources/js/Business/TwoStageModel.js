@@ -1,6 +1,6 @@
-import {compound} from "./tools"
+const {compound} = require("./tools")
 
-export class TwoStageModel {
+class TwoStageModel {
     constructor(
         start_value,
         terminal_multiple,
@@ -35,3 +35,5 @@ export class TwoStageModel {
         ) * this.terminal_multiple
     }
 }
+
+module.exports.TwoStageModel = TwoStageModel
