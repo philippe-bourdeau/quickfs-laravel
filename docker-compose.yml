@@ -11,9 +11,9 @@ services:
     volumes:
       - .:/var/www/html
   php-cli:
-    container_name: php-cli
+    container_name: cli
     build:
-      context: docker/php-cli
+      context: docker/cli
     volumes:
       - .:/var/www/html
   nginx:
@@ -50,9 +50,5 @@ services:
       test: [ "CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}" ]
       retries: 3
       timeout: 5s
-  node-cli:
-    container_name: node-cli
-    build:
-      context: docker/node-cli
 volumes:
     mysql:
