@@ -177,6 +177,10 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
 
+        /**
+         * Application specific providers
+         */
+        \App\Providers\QuickFSClientProvider::class
     ],
 
     /*

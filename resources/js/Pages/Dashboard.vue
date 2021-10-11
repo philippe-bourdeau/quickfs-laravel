@@ -1,10 +1,23 @@
 <template>
     <app-layout title="Dashboard">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Dashboard
-            </h2>
+            <ticker-form />
         </template>
+
+        <div class="bg-red-900 text-center py-4 lg:px-4" v-if="errors.ticker">
+            <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+                <span class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3">Error</span>
+                <span class="font-semibold mr-2 text-left flex-auto">{{ errors.ticker }}</span>
+            </div>
+        </div>
+
+        <div v-if="data.metadata">
+            {{ data.metadata.price}}
+        </div>
+
+        <div v-if="data.metadata">
+            {{ data.metadata.market_cap}}
+        </div>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -20,11 +33,17 @@
     import { defineComponent } from 'vue'
     import AppLayout from '@/Layouts/AppLayout.vue'
     import ValuationTable from '@/Components/ValuationTable.vue'
+    import TickerForm from "@/Components/TickerForm.vue";
 
     export default defineComponent({
         components: {
             AppLayout,
             ValuationTable,
+            TickerForm
         },
+        props: {
+            data : Object,
+            errors: Object
+        }
     })
 </script>
