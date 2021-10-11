@@ -84,7 +84,7 @@ class TwoStageModel {
     /**
      * @returns {number}
      */
-    presentValueTerminal () {
+    get presentValueTerminal () {
         return this.terminalValue * (1 + this.discount_rate/100) ** -10
     }
 
@@ -96,12 +96,10 @@ class TwoStageModel {
      */
     intrinsicValue() {
         if (!this.include_present_value) {
-            return this.presentValueTerminal()
+            return this.presentValueTerminal
         }
 
-        console.log('here')
-
-        let sum = this.presentValueTerminal()
+        let sum = this.presentValueTerminal
         for (let i = 1; i <= 10; i++) {
             sum += this.presentValue(i)
         }
