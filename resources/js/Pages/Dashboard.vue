@@ -11,18 +11,10 @@
             </div>
         </div>
 
-        <div v-if="data.metadata">
-            {{ data.metadata.price}}
-        </div>
-
-        <div v-if="data.metadata">
-            {{ data.metadata.market_cap}}
-        </div>
-
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <valuation-table />
+                    <valuation-table/>
                 </div>
             </div>
         </div>
@@ -33,7 +25,7 @@
     import { defineComponent } from 'vue'
     import AppLayout from '@/Layouts/AppLayout.vue'
     import ValuationTable from '@/Components/ValuationTable.vue'
-    import TickerForm from "@/Components/TickerForm.vue";
+    import TickerForm from "@/Components/TickerForm.vue"
 
     export default defineComponent({
         components: {
@@ -42,8 +34,13 @@
             TickerForm
         },
         props: {
-            data : Object,
+            financials : Object,
             errors: Object
+        },
+        provide: function () {
+                return {
+                    financials: this.financials
+                }
         }
     })
 </script>

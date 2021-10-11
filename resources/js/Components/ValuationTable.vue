@@ -64,6 +64,18 @@
     </div>
 
     <div class="p-6 sm:px-6 bg-white py-2 mb-6">
+        <div class="w-full max-w-xl">
+            Financials:
+
+            {{ financials || ''}}
+
+            {{ financials.market_cap ||''}}
+
+            {{ financials.price || ''}}
+        </div>
+    </div>
+
+    <div class="p-6 sm:px-6 bg-white py-2 mb-6">
         <div class="w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <table class="table-auto">
                 <thead>
@@ -121,6 +133,7 @@ const {TwoStageModel} = require('../../js/Business/TwoStageModel')
 import {round} from 'lodash'
 
 export default defineComponent({
+    inject: ['financials'],
     data() {
         let userInput = {
             start_value: 0,

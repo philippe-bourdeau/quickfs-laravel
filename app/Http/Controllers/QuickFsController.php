@@ -41,14 +41,12 @@ class QuickFsController extends Controller
 
         $body = [
             'data' => [
-//                'period_end_date' => sprintf('QFS(%s,period_end_date,FY-9:FY)', $ticker),
-                'price' => sprintf('QFS(%s,price)', $ticker),
                 'market_cap' => sprintf('QFS(%s,mkt_cap)', $ticker),
-//                'revenue' => sprintf('QFS(%s,revenue,FY-9:FY)', $ticker),
-//                'capex' => sprintf('QFS(%s,capex,FY-9:FY)', $ticker),
-//                'operating_cash_flow' => sprintf('QFS(%s,cf_cfo,FY-9:FY)', $ticker),
-//                'net_income' => sprintf('QFS(%s,net_income,FY-9:FY)', $ticker),
-//                'eps' => sprintf('QFS(%s,eps_diluted,FY-9:FY)', $ticker),
+                'price' => sprintf('QFS(%s,price)', $ticker),
+                'period_end_date' => sprintf('QFS(%s,period_end_date,FY-9:FY)', $ticker),
+                'revenue' => sprintf('QFS(%s,revenue,FY-9:FY)', $ticker),
+                'net_income' => sprintf('QFS(%s,net_income,FY-9:FY)', $ticker),
+                'eps' => sprintf('QFS(%s,eps_diluted,FY-9:FY)', $ticker),
             ]
         ];
 
@@ -56,39 +54,27 @@ class QuickFsController extends Controller
         $responseBody = Utils::jsonDecode($response->getBody()->getContents());
         $data = $responseBody->data;
 
-        $statements = collect();
-//        $fallback = 'N/A';
-//        for ($i = 0; $i < 10; $i++) {
-//            $container = [
-//                'fiscal_end_date' => array_pop($data->period_end_date) ?? $fallback,
-//                'cash_flow_statement' => [
-//                    'operating_cash_flow' => array_pop($data->operating_cash_flow) ?? $fallback,
-//                    'capex' => array_pop($data->capex) ?? $fallback
-//                ],
-//                'income_statement' => [
-//                    'revenue' => array_pop($data->revenue) ?? $fallback,
-//                    'net_income' => array_pop($data->net_income) ?? $fallback,
-//                    'earnings_per_share' => array_pop($data->eps) ?? $fallback
-//                ],
-//                'balance_sheet' => [
-//                    'equity' => array_pop($data->equity) ?? $fallback
-//                ]
-//            ];
-//
-//            $statements->prepend($container);
-//        }
+        $series = collect();
+        for ($i = 0; $i < 10; $i++) {
+            $container = [
+                'fiscal_end_date' => array_pop($data->period_end_date),
+                'revenue' => array_pop($data->revenue),
+                'earnings' => array_pop($data->net_income),
+                'earnings_per_share' => array_pop($data->eps)
+            ];
+
+            $series->prepend($container);
+        }
 
         $data = [
-            'metadata' => [
-                'ticker' => $ticker,
-                'market_cap' => $data->market_cap,
-                'price' => $data->price,
-            ],
-            'statements' => $statements->all()
+            'ticker' => $ticker,
+            'market_cap' => $data->market_cap,
+            'price' => $data->price,
+            'series' => $series
         ];
 
         return Inertia::render(
-            'Dashboard', ['data' => $data]
+            'Dashboard', ['financials' => $data]
         );
     }
 }
