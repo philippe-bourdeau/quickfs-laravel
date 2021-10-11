@@ -1,49 +1,117 @@
 <template>
-    <table class="table-auto">
-        <thead>
-        <tr>
-            <th>Starting number</th>
-            <th v-for="year in 10"
-                :key="year"
-                class="px-4 py-2"
-            >
-                Year {{ year }}
-            </th>
-            <th class="px-4 py-2">Terminal value</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td class="border px-4 py-2">
-                <input
-                    class="input"
-                    type="text"
-                    v-model="userInput.start_value"
-                >
-            </td>
-            <td v-for="year in 10"
-                :key="year"
-                class="border px-4 py-2"
-            >
-                {{ formatFloat(model.projectedValue(year)) }}
-            </td>
-            <td class="border px-4 py-2">
-                {{formatFloat(model.terminalValue) }}
-            </td>
-        </tr>
-        <tr>
-            <td class="border px-4 py-2">Present Value @ {{ userInput.discount_rate }} %</td>
-            <td v-for="year in 10"
-                :key="year"
-                class="border px-4 py-2"
-            >
-                {{ formatFloat(model.presentValue(year)) }}
-            </td>
-            <td class="border px-4 py-2">{{formatFloat(model.presentValueTerminal)}}</td>
-        </tr>
-        <tr><b>&nbsp;&nbsp;INTRINSIC VALUE : {{formatFloat(model.intrinsicValue())}}</b></tr>
-        </tbody>
-    </table>
+    <div class="p-6 sm:px-6 bg-white py-2 mb-6">
+        <div class="w-full max-w-xs">
+            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div class="mb-2">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="stage1">
+                        Stage 1 Growth rate (year 1-5)
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                           id="stage1"
+                           type="text"
+                           placeholder="Stage 1 growth"
+                           v-model="userInput.rate1"
+                    >
+                </div>
+                <div class="mb-2">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="stage2">
+                        Stage 2 Growth rate (year 6-10)
+                    </label>
+                    <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                           id="stage2"
+                           type="text"
+                           placeholder="Stage 2 growth"
+                           v-model="userInput.rate2"
+                    >
+                </div>
+                <div class="mb-2">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="discount_rate">
+                        Discount rate
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                           id="discount_rate"
+                           type="text"
+                           placeholder="Discount rate"
+                           v-model="userInput.discount_rate"
+                    >
+                </div>
+                <div class="mb-2">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="multiple">
+                        Terminal multiple
+                    </label>
+                    <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                           id="multiple"
+                           type="text"
+                           placeholder="Multiple"
+                           v-model="userInput.terminal_multiple"
+                    >
+                </div>
+
+                <div class="mb-2">
+                    <label class="block text-gray-500 font-bold">
+                        <input
+                            class="mr-2 leading-tight"
+                            type="checkbox"
+                            v-model="userInput.include_present_value"
+                        >
+                        <span class="text-sm">
+                            Include present value
+                        </span>
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="p-6 sm:px-6 bg-white py-2 mb-6">
+        <div class="w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <table class="table-auto">
+                <thead>
+                <tr>
+                    <th>Starting number</th>
+                    <th v-for="year in 10"
+                        :key="year"
+                        class="px-4 py-2"
+                    >
+                        Year {{ year }}
+                    </th>
+                    <th class="px-4 py-2">Terminal value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="border px-4 py-2">
+                        <input
+                            class="input"
+                            type="text"
+                            v-model="userInput.start_value"
+                        >
+                    </td>
+                    <td v-for="year in 10"
+                        :key="year"
+                        class="border px-4 py-2"
+                    >
+                        {{ formatFloat(model.projectedValue(year)) }}
+                    </td>
+                    <td class="border px-4 py-2">
+                        {{formatFloat(model.terminalValue) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Present Value @ {{ userInput.discount_rate }} %</td>
+                    <td v-for="year in 10"
+                        :key="year"
+                        class="border px-4 py-2"
+                    >
+                        {{ formatFloat(model.presentValue(year)) }}
+                    </td>
+                    <td class="border px-4 py-2">{{formatFloat(model.presentValueTerminal)}}</td>
+                </tr>
+                <tr><b>&nbsp;&nbsp;INTRINSIC VALUE : {{formatFloat(model.intrinsicValue())}}</b></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </template>
 
 <script>
