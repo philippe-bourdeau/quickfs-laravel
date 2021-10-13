@@ -30,7 +30,7 @@ class QuickFsController extends Controller
         $request->validate([
             'ticker' => [
                 'required',
-                'regex:/^[a-z0-9]+\.?[a-z0-9]*:[a-z]{2}$/i',
+                'regex:/^[a-z0-9]{1,4}:[a-z]{2}$/i',
                 'max:256',
                 'ends_with:US,CA,MX,UK,AU,NZ',
 //                new SupportedCompany
