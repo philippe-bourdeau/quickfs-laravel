@@ -2,20 +2,20 @@
     <div class="grid grid-cols-4">
         <div class="flex items-center">
             <h2
-                v-if="financials && financials.name">
-                {{ financials.ticker }} - {{ financials.name }}
+                v-if="summary && summary.name">
+                {{ summary.ticker }} - {{ summary.name }}
             </h2>
         </div>
         <div class="flex items-center">
             <h2
-                v-if="financials && financials.currency">
-                {{ financials.price }} {{ financials.currency }}
+                v-if="summary && summary.currency">
+                {{ summary.price }} {{ summary.currency }}
             </h2>
         </div>
         <div class="flex items-center">
             <h2
-                v-if="financials && financials.market_cap">
-                Market cap. : {{ financials.market_cap }} {{ financials.currency }}
+                v-if="summary && summary.market_cap">
+                Market cap. : {{ summary.market_cap }} {{ summary.currency }}
             </h2>
         </div>
         <div>
@@ -38,7 +38,7 @@
 
 <script>
 export default {
-    inject: ['financials'],
+    inject: ['summary'],
     data() {
         return {
             form: {

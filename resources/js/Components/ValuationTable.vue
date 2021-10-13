@@ -65,13 +65,13 @@
 
     <div class="p-6 sm:px-6 bg-white py-2 mb-6">
         <div class="w-full max-w-xl">
-            Financials:
+            summary:
 
-            {{ financials || ''}}
+            {{ summary || ''}}
 
-            {{ financials.market_cap ||''}}
+            {{ summary.market_cap ||''}}
 
-            {{ financials.price || ''}}
+            {{ summary.price || ''}}
         </div>
     </div>
 
@@ -133,7 +133,7 @@ const {TwoStageModel} = require('../../js/Business/TwoStageModel')
 import {round} from 'lodash'
 
 export default defineComponent({
-    inject: ['financials'],
+    inject: ['summary'],
     data() {
         let userInput = {
             start_value: 0,

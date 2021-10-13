@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\QuickFsController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -24,16 +23,16 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard', ['financials' => []]);
+    return Inertia::render('Dashboard', ['summary' => []]);
 })->name('dashboard');
 
 Route::get(
-    '/ticker',
+    '/summary',
     [
         QuickFsController::class,
-        'byTicker'
+        'summary'
     ])
-    ->name('ticker')
+    ->name('summary')
     ->middleware(
         [
             'auth:sanctum',

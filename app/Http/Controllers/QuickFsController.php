@@ -25,7 +25,7 @@ class QuickFsController extends Controller
     /**
      * @return Response
      */
-    public function byTicker(Request $request): Response
+    public function summary(Request $request): Response
     {
         $request->validate([
             'ticker' => [
@@ -78,7 +78,7 @@ class QuickFsController extends Controller
         ];
 
         return Inertia::render(
-            'Dashboard', ['financials' => $data]
+            'Dashboard', ['summary' => $data]
         );
     }
 }

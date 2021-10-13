@@ -34,12 +34,12 @@
             TickerForm
         },
         props: {
-            financials : Object,
+            summary : Object,
             errors: Object
         },
         provide: function () {
                 return {
-                    financials: this.financials
+                    summary: this.summary
                 }
         }
     })
