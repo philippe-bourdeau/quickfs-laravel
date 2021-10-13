@@ -47,8 +47,9 @@ class QuickFsController extends Controller
                 'name' => sprintf('QFS(%s,name)', $ticker),
                 'period_end_date' => sprintf('QFS(%s,period_end_date,FY-9:FY)', $ticker),
                 'revenue' => sprintf('QFS(%s,revenue,FY-9:FY)', $ticker),
-                'net_income' => sprintf('QFS(%s,net_income,FY-9:FY)', $ticker),
-                'eps' => sprintf('QFS(%s,eps_diluted,FY-9:FY)', $ticker),
+                'earnings' => sprintf('QFS(%s,net_income,FY-9:FY)', $ticker),
+                'earnings_per_share' => sprintf('QFS(%s,eps_basic,FY-9:FY)', $ticker),
+                'dividends' => sprintf('QFS(%s,dividends,FY-9:FY)', $ticker),
             ]
         ];
 
@@ -58,11 +59,14 @@ class QuickFsController extends Controller
 
         $series = collect();
         for ($i = 0; $i < 10; $i++) {
+            $year = array_pop($data->period_end_date);
             $container = [
-                'fiscal_end_date' => array_pop($data->period_end_date),
-                'revenue' => array_pop($data->revenue),
-                'earnings' => array_pop($data->net_income),
-                'earnings_per_share' => array_pop($data->eps)
+                $year => [
+                    'revenue' => array_pop($data->revenue),
+                    'earnings' => array_pop($data->earnings),
+                    'earnings_per_share' => array_pop($data->earnings_per_share),
+                    'dividends' => array_pop($data->dividends)
+                ]
             ];
 
             $series->prepend($container);
