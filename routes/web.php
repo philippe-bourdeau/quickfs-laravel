@@ -26,7 +26,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard', ['summary' => []]);
 })->name('dashboard');
 
-Route::get(
+Route::post(
     '/summary',
     [
         QuickFsController::class,

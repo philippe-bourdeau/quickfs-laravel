@@ -18,8 +18,6 @@ class QuickFsController extends Controller
     public function __construct(IQuickFSClient $client)
     {
         $this->client = $client;
-//        $this->middleware('ticker');
-//        $this->middleware('cache_statements');
     }
 
     /**
@@ -32,8 +30,7 @@ class QuickFsController extends Controller
                 'required',
                 'regex:/^[a-z0-9]{1,4}:[a-z]{2}$/i',
                 'max:256',
-                'ends_with:US,CA,MX,UK,AU,NZ',
-//                new SupportedCompany
+                'ends_with:US,CA,MX,UK,AU,NZ'
             ]
         ]);
 
@@ -59,17 +56,15 @@ class QuickFsController extends Controller
 
         $series = collect();
         for ($i = 0; $i < 10; $i++) {
-            $year = array_pop($data->period_end_date);
-            $container = [
-                $year => [
+            $series->put(
+                array_pop($data->period_end_date),
+                [
                     'revenue' => array_pop($data->revenue),
                     'earnings' => array_pop($data->earnings),
                     'earnings_per_share' => array_pop($data->earnings_per_share),
                     'dividends' => array_pop($data->dividends)
                 ]
-            ];
-
-            $series->prepend($container);
+            );
         }
 
         $data = [

@@ -30,3 +30,9 @@ npm run prod
 # Compile your CSS / JavaScript for development and recompile on change...
 npm run watch
 ```
+
+TODO
+* Improve ticker validation and error handling
+* Redis 
+    -add job support (start with mail)
+    -cache quickfs statements
