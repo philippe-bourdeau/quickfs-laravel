@@ -2,9 +2,10 @@ This is a laravel/jetstream application
 
 # Helpers 
 
-```sh
-source ./docker/bin/tools.sh
-```
+check docker/bin/tools.sh for project related tools
+
+## Xdebug on the commandline 
+XDEBUG_TRIGGER=yes ./vendor/bin/phpunit ./tests
 
 * Jump into the cli container to interact with the code base (cli-sh)
 * Manage docker containers
@@ -36,3 +37,5 @@ TODO
 * Redis 
     -add job support (start with mail)
     -cache quickfs statements
+SVG ; authenticationlogo vs application logo had different size
+* could work if we had control over different 2 different svg/size
