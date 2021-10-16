@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Business\QuickFs\IQuickFSClient;
+use App\Http\Middleware\TweakTickerCountryMiddleware;
 use GuzzleHttp\Utils;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -18,6 +19,7 @@ class QuickFsController extends Controller
     public function __construct(IQuickFSClient $client)
     {
         $this->client = $client;
+        $this->middleware(TweakTickerCountryMiddleware::MIDDLEWARE_MAPPER);
     }
 
     /**
@@ -25,12 +27,13 @@ class QuickFsController extends Controller
      */
     public function summary(Request $request): Response
     {
+
         $request->validate([
             'ticker' => [
                 'required',
                 'regex:/^[a-z0-9]{1,4}:[a-z]{2}$/i',
                 'max:256',
-                'ends_with:US,CA,MX,UK,AU,NZ'
+                'ends_with:US,CA,AU,NZ,MX,UK,' /** @see TweakTickerCountryMiddleware */
             ]
         ]);
 
