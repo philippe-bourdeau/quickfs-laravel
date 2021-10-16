@@ -25,7 +25,7 @@
                 <div class="flex items-center border-b border-teal-500 py-2">
                     <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
                            type="text"
-                           placeholder="ex. BCE.CA, AMZN.US"
+                           placeholder="ex. BCE:CA, AMZN:US"
                            aria-label="ticker_and_country"
                            v-model="form.ticker"
                     >
@@ -37,18 +37,24 @@
 </template>
 
 <script>
+
+import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
+
 export default {
     inject: ['summary'],
+    components: {
+        JetValidationErrors
+    },
     data() {
         return {
-            form: {
+            form: this.$inertia.form({
                 ticker: ''
-            },
+            }),
         }
     },
     methods: {
         submit() {
-            this.$inertia.get('/ticker', this.form)
+            this.$inertia.post('/summary', this.form)
         },
     },
 }
