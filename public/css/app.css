@@ -1111,12 +1111,6 @@ select {
 .col-span-6 {
 	grid-column: span 6 / span 6;
 }
-.col-span-2 {
-	grid-column: span 2 / span 2;
-}
-.col-span-10 {
-	grid-column: span 10 / span 10;
-}
 .mx-auto {
 	margin-left: auto;
 	margin-right: auto;
@@ -1369,8 +1363,8 @@ select {
 .grid-cols-4 {
 	grid-template-columns: repeat(4, minmax(0, 1fr));
 }
-.grid-cols-12 {
-	grid-template-columns: repeat(12, minmax(0, 1fr));
+.flex-row {
+	flex-direction: row;
 }
 .flex-col {
 	flex-direction: column;

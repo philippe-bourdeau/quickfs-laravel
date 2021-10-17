@@ -1,15 +1,13 @@
 <template>
-    <div class="grid grid-cols-12">
-        <div class="col-span-2">
-
-            <div class="p-6 sm:px-6 bg-white py-2 mb-6">
+        <div class="flex flex-row">
+            <div class="p-6 sm:px-6 bg-white py-2 mb-6 mt-6">
                 <div class="w-full max-w-xs">
-                    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 text-right">
                         <div class="mb-2">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="stage1">
                                 Stage 1 Growth rate (year 1-5)
                             </label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-right"
                                    id="stage1"
                                    type="text"
                                    placeholder="Stage 1 growth"
@@ -20,7 +18,7 @@
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="stage2">
                                 Stage 2 Growth rate (year 6-10)
                             </label>
-                            <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                            <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline text-right"
                                    id="stage2"
                                    type="text"
                                    placeholder="Stage 2 growth"
@@ -31,7 +29,7 @@
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="discount_rate">
                                 Discount rate
                             </label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-right"
                                    id="discount_rate"
                                    type="text"
                                    placeholder="Discount rate"
@@ -42,7 +40,7 @@
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="multiple">
                                 Terminal multiple
                             </label>
-                            <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                            <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline text-right"
                                    id="multiple"
                                    type="text"
                                    placeholder="Multiple"
@@ -65,35 +63,33 @@
                     </form>
                 </div>
             </div>
-
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-auto">
+                <table class="text-right" v-if="summary.ticker">
+                    <thead>
+                    <tr>
+                        <th class="px-2">Year</th>
+                        <th class="px-2">Revenue {{ summary.currency }} Mil</th>
+                        <th class="px-2">Earnings {{ summary.currency }} Mil</th>
+                        <th class="px-2">EPS</th>
+                        <th class="px-2">Dividends</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(item, index) in summary.series" key="index">
+                        <td class="border px-4 py-2">{{ index }}</td>
+                        <td class="border px-4 py-2">{{ inMillions(item.revenue) }}</td>
+                        <td class="border px-4 py-2">{{ inMillions(item.earnings) }}</td>
+                        <td class="border px-4 py-2">{{ item.earnings_per_share }}</td>
+                        <td class="border px-4 py-2">{{ item.dividends }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="col-span-10">
-                    <table v-if="summary.ticker">
-                        <thead>
-                        <tr>
-                            <th>Year</th>
-                            <th>Revenue</th>
-                            <th>Earnings</th>
-                            <th>Earnings/share</th>
-                            <th>Dividends</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="(item, index) in summary.series" key="index">
-                            <td class="border px-4 py-2">{{ index }}</td>
-                            <td class="border px-4 py-2">{{ item.revenue }}</td>
-                            <td class="border px-4 py-2">{{ item.earnings }}</td>
-                            <td class="border px-4 py-2">{{ item.earnings_per_share }}</td>
-                            <td class="border px-4 py-2">{{ item.dividends }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-    </div>
 
     <div class="p-6 sm:px-6 bg-white py-2 mb-6">
         <div class="w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <table>
+            <table class="text-right">
                 <thead>
                 <tr>
                     <th>Starting number</th>
@@ -110,7 +106,7 @@
                 <tr>
                     <td class="border px-4 py-2">
                         <input
-                            class="input"
+                            class="input text-right"
                             type="text"
                             v-model="userInput.start_value"
                         >
@@ -146,11 +142,13 @@
 
 import {defineComponent} from 'vue'
 import {round} from 'lodash'
+import {mixin} from "./formatsInMillionsMixin";
 
 const {TwoStageModel} = require('../../js/Business/TwoStageModel')
 
 export default defineComponent({
     props:['summary'],
+    mixins: [mixin],
     data() {
         let userInput = {
             start_value: 0,

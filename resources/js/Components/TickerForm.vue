@@ -15,7 +15,7 @@
         <div class="flex items-center">
             <h2
                 v-if="summary && summary.market_cap">
-                Market cap. : {{ summary.market_cap }} {{ summary.currency }}
+                Market cap. : {{ `${inMillions(summary.market_cap)} ${summary.currency} Mil` }}
             </h2>
         </div>
         <div>
@@ -38,6 +38,7 @@
 
 <script>
 import {Inertia} from "@inertiajs/inertia";
+import {mixin} from "./formatsInMillionsMixin";
 
 export default {
     data() {
@@ -45,6 +46,7 @@ export default {
             'ticker' : ''
         }
     },
+    mixins :  [mixin],
     props: ['summary'],
     methods : {
         search () {
