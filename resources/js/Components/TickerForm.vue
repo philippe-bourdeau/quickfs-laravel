@@ -15,7 +15,7 @@
         <div class="flex items-center">
             <h2
                 v-if="summary && summary.market_cap">
-                Market cap. : {{ `${inMillions(summary.market_cap)} ${summary.currency} Mil` }}
+                Market cap. : {{ `${new Intl.NumberFormat('en-US').format(summary.market_cap)} ${summary.currency} Mil` }}
             </h2>
         </div>
         <div>

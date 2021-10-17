@@ -33,9 +33,10 @@ npm run watch
 ```
 
 TODO
-* Arrange layout
-* Test summary and other classes
 * Add pay-to-access functionality
+* Error handling
+* Improve top form readability(with market cap)
+* Test summary and other classes
 * Landing page
 * Add operating cash flow
 * Redis 
