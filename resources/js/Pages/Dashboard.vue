@@ -4,11 +4,8 @@
             <ticker-form :summary="summary"/>
         </template>
 
-        <div class="bg-red-900 text-center py-4 lg:px-4" v-if="errors.ticker">
-            <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
-                <span class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3">Error</span>
-                <span class="font-semibold mr-2 text-left flex-auto">{{ errors.ticker }}</span>
-            </div>
+        <div class="bg-red-100 text-center py-4 lg:px-4" v-if="errors.ticker">
+            <jet-validation-errors></jet-validation-errors>
         </div>
 
         <div class="py-12">
@@ -26,12 +23,14 @@ import {defineComponent} from 'vue'
 import AppLayout from '@/Layouts/AppLayout.vue'
 import ValuationTable from '@/Components/ValuationTable.vue'
 import TickerForm from "@/Components/TickerForm.vue"
+import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
 
 export default defineComponent({
         components: {
             AppLayout,
             ValuationTable,
-            TickerForm
+            TickerForm,
+            JetValidationErrors
         },
         props: {
             summary : Object,
