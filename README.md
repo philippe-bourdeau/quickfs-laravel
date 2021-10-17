@@ -33,9 +33,9 @@ npm run watch
 ```
 
 TODO
-* Improve ticker validation and error handling
+* Add pay-to-access functionality
+* Add operating cash flow
 * Redis 
     -add job support (start with mail)
-    -cache quickfs statements
-SVG ; authenticationlogo vs application logo had different size
-* could work if we had control over different 2 different svg/size
+    -cache quickfs-statements
+* Add database for tests (Featured)

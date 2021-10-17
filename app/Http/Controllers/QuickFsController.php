@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Business\QuickFs\IQuickFSClient;
 use App\Http\Middleware\TweakTickerCountryMiddleware;
+use App\Validation\QuickFsSupportedCompanyRule;
 use GuzzleHttp\Utils;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -31,9 +32,10 @@ class QuickFsController extends Controller
         $request->validate([
             'ticker' => [
                 'required',
-                'regex:/^[a-z0-9]{1,4}:[a-z]{2}$/i',
-                'max:256',
-                'ends_with:US,CA,AU,NZ,MX,UK,' /** @see TweakTickerCountryMiddleware */
+                'regex:/^[a-z0-9]{1,5}:[a-z]{2}$/i',
+                'max:7',
+                'ends_with:US,CA,AU,NZ,MX,UK,' /** @see TweakTickerCountryMiddleware */,
+                new QuickFsSupportedCompanyRule
             ]
         ]);
 
