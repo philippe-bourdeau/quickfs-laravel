@@ -1,86 +1,99 @@
 <template>
-    <div class="p-6 sm:px-6 bg-white py-2 mb-6">
-        <div class="w-full max-w-xs">
-            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <div class="mb-2">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="stage1">
-                        Stage 1 Growth rate (year 1-5)
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                           id="stage1"
-                           type="text"
-                           placeholder="Stage 1 growth"
-                           v-model="userInput.rate1"
-                    >
-                </div>
-                <div class="mb-2">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="stage2">
-                        Stage 2 Growth rate (year 6-10)
-                    </label>
-                    <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                           id="stage2"
-                           type="text"
-                           placeholder="Stage 2 growth"
-                           v-model="userInput.rate2"
-                    >
-                </div>
-                <div class="mb-2">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="discount_rate">
-                        Discount rate
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                           id="discount_rate"
-                           type="text"
-                           placeholder="Discount rate"
-                           v-model="userInput.discount_rate"
-                    >
-                </div>
-                <div class="mb-2">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="multiple">
-                        Terminal multiple
-                    </label>
-                    <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                           id="multiple"
-                           type="text"
-                           placeholder="Multiple"
-                           v-model="userInput.terminal_multiple"
-                    >
-                </div>
+    <div class="grid grid-cols-12">
+        <div class="col-span-2">
 
-                <div class="mb-2">
-                    <label class="block text-gray-500 font-bold">
-                        <input
-                            class="mr-2 leading-tight"
-                            type="checkbox"
-                            v-model="userInput.include_present_value"
-                        >
-                        <span class="text-sm">
+            <div class="p-6 sm:px-6 bg-white py-2 mb-6">
+                <div class="w-full max-w-xs">
+                    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                        <div class="mb-2">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="stage1">
+                                Stage 1 Growth rate (year 1-5)
+                            </label>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                   id="stage1"
+                                   type="text"
+                                   placeholder="Stage 1 growth"
+                                   v-model="userInput.rate1"
+                            >
+                        </div>
+                        <div class="mb-2">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="stage2">
+                                Stage 2 Growth rate (year 6-10)
+                            </label>
+                            <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                                   id="stage2"
+                                   type="text"
+                                   placeholder="Stage 2 growth"
+                                   v-model="userInput.rate2"
+                            >
+                        </div>
+                        <div class="mb-2">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="discount_rate">
+                                Discount rate
+                            </label>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                   id="discount_rate"
+                                   type="text"
+                                   placeholder="Discount rate"
+                                   v-model="userInput.discount_rate"
+                            >
+                        </div>
+                        <div class="mb-2">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="multiple">
+                                Terminal multiple
+                            </label>
+                            <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                                   id="multiple"
+                                   type="text"
+                                   placeholder="Multiple"
+                                   v-model="userInput.terminal_multiple"
+                            >
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="block text-gray-500 font-bold">
+                                <input
+                                    class="mr-2 leading-tight"
+                                    type="checkbox"
+                                    v-model="userInput.include_present_value"
+                                >
+                                <span class="text-sm">
                             Include present value
                         </span>
-                    </label>
+                            </label>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
+
         </div>
-    </div>
-
-    <div class="p-6 sm:px-6 bg-white py-2 mb-6">
-        <div
-            v-if="summary"
-            class="w-full max-w-xl"
-        >
-            summary:
-
-            {{ summary || ''}}
-
-            {{ summary.market_cap ||''}}
-
-            {{ summary.price || ''}}
-        </div>
+        <div class="col-span-10">
+                    <table v-if="summary.ticker">
+                        <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Revenue</th>
+                            <th>Earnings</th>
+                            <th>Earnings/share</th>
+                            <th>Dividends</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(item, index) in summary.series" key="index">
+                            <td class="border px-4 py-2">{{ index }}</td>
+                            <td class="border px-4 py-2">{{ item.revenue }}</td>
+                            <td class="border px-4 py-2">{{ item.earnings }}</td>
+                            <td class="border px-4 py-2">{{ item.earnings_per_share }}</td>
+                            <td class="border px-4 py-2">{{ item.dividends }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
     </div>
 
     <div class="p-6 sm:px-6 bg-white py-2 mb-6">
         <div class="w-full bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <table class="table-auto">
+            <table>
                 <thead>
                 <tr>
                     <th>Starting number</th>

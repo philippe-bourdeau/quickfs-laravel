@@ -33,6 +33,7 @@ npm run watch
 ```
 
 TODO
+* Arrange layout
 * Test summary and other classes
 * Add pay-to-access functionality
 * Landing page
