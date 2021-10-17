@@ -27,9 +27,9 @@
                            type="text"
                            placeholder="ex. BCE:CA, AMZN:US"
                            aria-label="ticker_and_country"
-                           v-model="form.ticker"
+                           v-model="ticker"
                     >
-                    <button type="submit" :disabled="form.processing">Search</button>
+                    <button type="submit">Search</button>
                 </div>
             </form>
         </div>
@@ -38,20 +38,28 @@
 
 <script>
 
-import {useForm} from '@inertiajs/inertia-vue3'
+import {Inertia} from "@inertiajs/inertia";
 
 export default {
-    setup () {
-        const form = useForm({
+    data() {
+        return {
             'ticker' : ''
-        })
-
-        return { form }
+        }
     },
     props: ['summary'],
     methods : {
         search () {
-            return this.form.get('/dashboard', {only:['summary']})
+            return Inertia.visit(
+                '/dashboard',
+                {
+                    data : {
+                        ticker : this.ticker
+                    },
+                    only:[
+                        'summary',
+                        'errors'
+                    ]
+                })
         }
     }
 }

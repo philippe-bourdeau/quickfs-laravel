@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Business\QuickFs\IQuickFSClient;
 use App\Business\QuickFs\Summary;
 use App\Http\Middleware\TweakTickerCountryMiddleware;
 use App\Validation\QuickFsSupportedCompanyRule;
@@ -17,19 +16,21 @@ class QuickFsController extends Controller
         $this->middleware(TweakTickerCountryMiddleware::MIDDLEWARE_MAPPER);
     }
 
-    public function dashboard(Request $request, IQuickFSClient $client): Response
+    public function dashboard(Request $request): Response
     {
         $ticker = $request->get('ticker');
         if ($ticker) {
-            $request->validate([
-                'ticker' => [
-                    'required',
-                    'regex:/^[a-z0-9]{1,5}:[a-z]{2}$/i',
-                    'max:7',
-                    'ends_with:US,CA,AU,NZ,MX,UK,' /** @see TweakTickerCountryMiddleware */,
-                    new QuickFsSupportedCompanyRule
+            $request->validate(
+                [
+                    'ticker' => [
+                        'required',
+                        'regex:/^[a-z0-9]{1,5}:[a-z]{2}$/i',
+                        'max:7',
+                        'ends_with:US,CA,AU,NZ,MX,UK,' /** @see TweakTickerCountryMiddleware */,
+                        new QuickFsSupportedCompanyRule
+                    ]
                 ]
-            ]);
+            );
         }
 
         $summary = $ticker

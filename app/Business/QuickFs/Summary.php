@@ -30,18 +30,15 @@ class Summary
         $series = [];
         for ($i = 0; $i < 10; $i++) {
             $series[array_pop($data->period_end_date)] = [
-                array_pop($data->period_end_date),
-                [
-                    'revenue' => array_pop($data->revenue),
-                    'earnings' => array_pop($data->earnings),
-                    'earnings_per_share' => array_pop($data->earnings_per_share),
-                    'dividends' => array_pop($data->dividends)
-                ]
+                'revenue' => array_pop($data->revenue),
+                'earnings' => array_pop($data->earnings),
+                'earnings_per_share' => array_pop($data->earnings_per_share),
+                'dividends' => array_pop($data->dividends)
             ];
         }
 
         return [
-            'ticker' => $data->ticker,
+            'ticker' => $ticker,
             'currency' => $data->currency,
             'name' => $data->name,
             'market_cap' => $data->market_cap,
