@@ -15,4 +15,6 @@ interface IQuickFSClient
     public function multipleMetrics(array $body): ResponseInterface;
 
     public function singleMetric(string $ticker, string $metric, string $period): ResponseInterface;
+
+    public function summary(string $ticker): ResponseInterface;
 }

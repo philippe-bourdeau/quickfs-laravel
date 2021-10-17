@@ -64,4 +64,29 @@ class QuickFSClient implements IQuickFSClient
             ]
         );
     }
+
+    /**
+     *
+     * @param string $ticker
+     * @return ResponseInterface
+     * @throws GuzzleException
+     */
+    public function summary(string $ticker): ResponseInterface
+    {
+        $body = [
+            'data' => [
+                'market_cap' => sprintf('QFS(%s,mkt_cap)', $ticker),
+                'price' => sprintf('QFS(%s,price)', $ticker),
+                'currency' => sprintf('QFS(%s,currency)', $ticker),
+                'name' => sprintf('QFS(%s,name)', $ticker),
+                'period_end_date' => sprintf('QFS(%s,period_end_date,FY-9:FY)', $ticker),
+                'revenue' => sprintf('QFS(%s,revenue,FY-9:FY)', $ticker),
+                'earnings' => sprintf('QFS(%s,net_income,FY-9:FY)', $ticker),
+                'earnings_per_share' => sprintf('QFS(%s,eps_basic,FY-9:FY)', $ticker),
+                'dividends' => sprintf('QFS(%s,dividends,FY-9:FY)', $ticker),
+            ]
+        ];
+
+        return $this->multipleMetrics($body);
+    }
 }

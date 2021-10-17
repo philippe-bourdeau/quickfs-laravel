@@ -20,7 +20,7 @@
         </div>
         <div>
             <form
-                @submit.prevent="submit"
+                @submit.prevent="search"
             >
                 <div class="flex items-center border-b border-teal-500 py-2">
                     <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
@@ -38,25 +38,22 @@
 
 <script>
 
-import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
+import {useForm} from '@inertiajs/inertia-vue3'
 
 export default {
-    inject: ['summary'],
-    components: {
-        JetValidationErrors
+    setup () {
+        const form = useForm({
+            'ticker' : ''
+        })
+
+        return { form }
     },
-    data() {
-        return {
-            form: this.$inertia.form({
-                ticker: ''
-            }),
+    props: ['summary'],
+    methods : {
+        search () {
+            return this.form.get('/dashboard', {only:['summary']})
         }
-    },
-    methods: {
-        submit() {
-            this.$inertia.post('/summary', this.form)
-        },
-    },
+    }
 }
 
 </script>

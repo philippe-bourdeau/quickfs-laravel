@@ -33,7 +33,9 @@ npm run watch
 ```
 
 TODO
+* Test summary and other classes
 * Add pay-to-access functionality
+* Landing page
 * Add operating cash flow
 * Redis 
     -add job support (start with mail)

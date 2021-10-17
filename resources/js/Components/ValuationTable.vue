@@ -64,7 +64,10 @@
     </div>
 
     <div class="p-6 sm:px-6 bg-white py-2 mb-6">
-        <div class="w-full max-w-xl">
+        <div
+            v-if="summary"
+            class="w-full max-w-xl"
+        >
             summary:
 
             {{ summary || ''}}
@@ -128,12 +131,13 @@
 
 <script>
 
-import { defineComponent } from 'vue'
-const {TwoStageModel} = require('../../js/Business/TwoStageModel')
+import {defineComponent} from 'vue'
 import {round} from 'lodash'
 
+const {TwoStageModel} = require('../../js/Business/TwoStageModel')
+
 export default defineComponent({
-    inject: ['summary'],
+    props:['summary'],
     data() {
         let userInput = {
             start_value: 0,
