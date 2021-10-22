@@ -17,6 +17,7 @@
                 v-if="summary && summary.market_cap">
                 Market cap. : {{ `${new Intl.NumberFormat('en-US').format(summary.market_cap)} ${summary.currency} Mil` }}
             </h2>
+            <h2 v-else>Pick a market and ticker to get your summary !</h2>
         </div>
         <div>
             <form

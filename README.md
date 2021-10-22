@@ -33,13 +33,17 @@ npm run watch
 ```
 
 TODO
-* Add pay-to-access functionality
-* Error handling
+* Improve display for intrinsic value
+* Add pay-to-access functionality - checkForActiveSubscriptionMiddleware
 * Improve top form readability(with market cap)
-* Test summary and other classes
+* Add test database for featured jetstream tests - seeding ? sqlite ?
 * Landing page
-* Add operating cash flow
+* Add summary data
+  * outstanding shares
+  * operating cash flow
 * Redis 
     -add job support (start with mail)
     -cache quickfs-statements
-* Add database for tests (Featured)
+* Separate ticker country / ticker ?
+  * text input for ticker
+  * select input for country

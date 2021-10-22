@@ -63,8 +63,8 @@
                     </form>
                 </div>
             </div>
-            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-auto">
-                <table class="text-right" v-if="summary.ticker">
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-auto" v-if="summary.ticker">
+                <table class="text-right">
                     <thead>
                     <tr>
                         <th class="px-2">Year</th>
