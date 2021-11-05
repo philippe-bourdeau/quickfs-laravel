@@ -1,4 +1,8 @@
-This is a laravel/jetstream application
+Main tools : 
+ * Laravel
+ * JetStream
+ * Inertia ("SSR" for Laravel + Vue)
+ * Cashier (Stripe Integration)
 
 # Helpers 
 
@@ -7,7 +11,7 @@ check docker/bin/tools.sh for project related tools
 ## Xdebug on the commandline 
 XDEBUG_TRIGGER=yes ./vendor/bin/phpunit ./tests
 
-* Jump into the cli container to interact with the code base (cli-sh)
+* sh into the cli container to interact with the code base (cli-sh)
 * Manage docker containers
 
 # Onboarding and cli common operations
@@ -16,6 +20,8 @@ XDEBUG_TRIGGER=yes ./vendor/bin/phpunit ./tests
 composer install;
 npm test;
 ```
+
+This application requires migrations !
 
 # Handling views
 
@@ -32,18 +38,33 @@ npm run prod
 npm run watch
 ```
 
-TODO
-* Improve display for intrinsic value
+### TODO : Next up
+* Ensure user can manage his subscription (billing portal)
+* Redirect to billing portal
 * Add pay-to-access functionality - checkForActiveSubscriptionMiddleware
-* Improve top form readability(with market cap)
-* Add test database for featured jetstream tests - seeding ? sqlite ?
-* Landing page
+* inspect stripe portal
+
+
+### UI 
 * Add summary data
-  * outstanding shares
-  * operating cash flow
+    * outstanding shares
+    * operating cash flow
+* Improve top form readability(with market cap)
+* Improve display for intrinsic value
+* Landing page
+* Separate ticker country / ticker ?
+* text input for ticker
+* select input for country
+
+
+### Backend
+* Backup mysql database
+* Webhooks + user sync Application <=> Stripe
 * Redis 
     -add job support (start with mail)
     -cache quickfs-statements
-* Separate ticker country / ticker ?
-  * text input for ticker
-  * select input for country
+* Taxes
+
+### Tests
+* Stripe mountebank
+* Test database for featured jetstream tests (not working atm)

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+
 return [
 
     /*
@@ -29,5 +31,19 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+
+    'stripe' => [
+        'model' => User::class,
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+        'products' => [
+            'stock-screener' => [
+                'product_id' => 'prod_KULm2nXnE3fnNm',
+                'price_id' => 'price_1JpN4dHIzazbu69xFkkWEJRy',
+                'payment_endpoint' => '/stock-screener/subscription/form',
+                'handle_endpoint' => '/stock-screener/subscription/handle'
+            ]
+        ]
+    ]
 
 ];

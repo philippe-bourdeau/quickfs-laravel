@@ -14,6 +14,10 @@
                 <Link v-if="canRegister" :href="route('register')" class="ml-4 text-sm text-gray-700 underline">
                     Register
                 </Link>
+
+                <Link :href="route('stripe-billing-portal')" class="ml-4 text-sm text-gray-700 underline">
+                    Manage my subscription
+                </Link>
             </template>
         </div>
         <h1>This is the landing page ! Sell the service here !</h1>
