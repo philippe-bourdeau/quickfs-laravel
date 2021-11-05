@@ -33,8 +33,7 @@ class TweakTickerCountryMiddleware
      */
     protected function transform(Request $request): void
     {
-        $input = $request->input();
-        $ticker = $input['ticker'] ?? null;
+        $ticker = $request->input()['ticker'] ?? null;
 
         if(!$ticker) {
             return;
