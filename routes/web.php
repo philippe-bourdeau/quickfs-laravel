@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\QuickFsController;
 use App\Http\Middleware\QuickFs\EnsureStockScreenerSubscriptionActive;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Laravel\Cashier\Exceptions\IncompletePayment;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,15 +50,26 @@ Route::middleware([
     'auth:sanctum',
     'verified',
 ])->post(config('services.stripe.subscriptions.stock-screener.handle_endpoint'), function (Request $request) {
-    $request->user()->newSubscription(
-        config('services.stripe.subscriptions.stock-screener.product_id'),
-        config('services.stripe.subscriptions.stock-screener.price_id')
-    )->create($request->paymentMethodId);
+    try {
+        /** @var User $user */
+        $user = $request->user();
+        $user->newSubscription(
+            config('services.stripe.subscriptions.stock-screener.product_id'),
+            config('services.stripe.subscriptions.stock-screener.price_id')
+        )->create($request->paymentMethodId);
+
+        return redirect()->route('dashboard');
+    } catch (IncompletePayment $exception) {
+        return redirect()->route(
+            'cashier.payment',
+            [$exception->payment->id, 'redirect' => route('home')]
+        );
+    }
 });
 
 Route::middleware([
     'auth:sanctum',
     'verified',
 ])->get('/stripe-billing-portal', function (Request $request) {
-    return $request->user()->redirectToBillingPortal();
+    return $request->user()->redirectToBillingPortal(route('dashboard'));
 })->name('stripe-billing-portal');

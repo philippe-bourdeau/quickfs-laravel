@@ -17,11 +17,10 @@ XDEBUG_TRIGGER=yes ./vendor/bin/phpunit ./tests
 # Onboarding and cli common operations
 
 ```sh
-composer install;
-npm test;
+composer install
+npm test
+php artisan migrate
 ```
-
-This application requires migrations !
 
 # Handling views
 
@@ -59,10 +58,12 @@ npm run watch
 
 ### Backend
 * Backup mysql database
-* Webhooks + user sync Application <=> Stripe
+* user data sync Application <=> Stripe
+* Webhooks
 * Redis 
     -add job support (start with mail)
     -cache quickfs-statements
+* SCA - Strong customer authentication
 * Taxes
 
 ### Tests
