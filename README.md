@@ -3,28 +3,38 @@ Main tools :
  * JetStream
  * Inertia ("SSR" for Laravel + Vue)
  * Cashier (Stripe Integration)
-
-# Helpers 
-
-check docker/bin/tools.sh for project related tools
-
-## Xdebug on the commandline 
-XDEBUG_TRIGGER=yes ./vendor/bin/phpunit ./tests
-
-* sh into the cli container to interact with the code base (cli-sh)
-* Manage docker containers
-
-# Onboarding and cli common operations
+ 
+## Onboarding
 
 ```sh
 composer install
-npm test
 php artisan migrate
 ```
 
-# Handling views
+## Tests
 
-To ensure you are working with an up-to-date version of you views, recompile your assets
+### PHP tests with debugger
+Install XDEBUG locally and update configuration (pecl install xdebug, modify local php.ini,etc.)
+```shell
+XDEBUG_TRIGGER=yes ./vendor/bin/phpunit -c phpunit.xml
+```
+
+### Javascript tests
+```shell
+docker exec -it cli sh
+npm test
+```
+
+## Helpers
+
+source docker/bin/tools.sh for project related helper functions
+
+
+## Run the application
+
+```shell
+docker exec -it cli sh
+```
 
 ```sh
 # Compile your CSS / JavaScript for development...

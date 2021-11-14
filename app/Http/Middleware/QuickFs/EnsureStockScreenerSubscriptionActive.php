@@ -19,13 +19,13 @@ class EnsureStockScreenerSubscriptionActive
     {
         /** @var User $user */
         $user = $request->user();
-        if (!$user->subscribed(config('services.stripe.subscriptions.stock-screener.product_id'))) {
-            return redirect(config('services.stripe.subscriptions.stock-screener.payment_endpoint'));
+        if (!$user->subscribed(config('services.stripe.products.stock-screener.product_id'))) {
+            return redirect(config('services.stripe.products.stock-screener.payment_endpoint'));
         }
 
-        if ($user->subscription(config('services.stripe.subscriptions.stock-screener.product_id'))
+        if ($user->subscription(config('services.stripe.products.stock-screener.product_id'))
                 ->hasIncompletePayment()) {
-            return redirect(config('services.stripe.subscriptions.stock-screener.payment_endpoint'));
+            return redirect(config('services.stripe.products.stock-screener.payment_endpoint'));
         }
 
         return $next($request);

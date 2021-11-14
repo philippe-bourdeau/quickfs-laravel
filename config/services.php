@@ -38,8 +38,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
         'products' => [
             'stock-screener' => [
-                'product_id' => 'prod_KULm2nXnE3fnNm',
-                'price_id' => 'price_1JpN4dHIzazbu69xFkkWEJRy',
+                'product_id' => env('STRIPE_SCREENER_PRODUCT_ID'),
+                'price_id' => env('STRIPE_SCREENER_PRICE_ID'),
                 'payment_endpoint' => '/stock-screener/subscription/form',
                 'handle_endpoint' => '/stock-screener/subscription/handle'
             ]

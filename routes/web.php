@@ -25,7 +25,6 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
     ]);
 });
-
 Route::middleware([
     'auth:sanctum',
     'verified',
@@ -38,24 +37,24 @@ Route::middleware([
 Route::middleware([
     'auth:sanctum',
     'verified',
-])->get(config('services.stripe.subscriptions.stock-screener.payment_endpoint'), function (Request $request) {
+])->get(config('services.stripe.products.stock-screener.payment_endpoint'), function (Request $request) {
     return Inertia::render('subscribeStockScreener', [
         'intent' => $request->user()->createSetupIntent(),
         'stripe_public_key' => config('services.stripe.key'),
-        'product_id' => config('services.stripe.subscriptions.stock-screener.product_id')
+        'product_id' => config('services.stripe.products.stock-screener.product_id')
     ]);
 });
 
 Route::middleware([
     'auth:sanctum',
     'verified',
-])->post(config('services.stripe.subscriptions.stock-screener.handle_endpoint'), function (Request $request) {
+])->post(config('services.stripe.products.stock-screener.handle_endpoint'), function (Request $request) {
     try {
         /** @var User $user */
         $user = $request->user();
         $user->newSubscription(
-            config('services.stripe.subscriptions.stock-screener.product_id'),
-            config('services.stripe.subscriptions.stock-screener.price_id')
+            config('services.stripe.products.stock-screener.product_id'),
+            config('services.stripe.products.stock-screener.price_id')
         )->create($request->paymentMethodId);
 
         return redirect()->route('dashboard');
