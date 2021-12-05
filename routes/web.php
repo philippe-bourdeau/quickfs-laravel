@@ -38,7 +38,7 @@ Route::middleware([
     'auth:sanctum',
     'verified',
 ])->get(config('services.stripe.products.stock-screener.payment_endpoint'), function (Request $request) {
-    return Inertia::render('subscribeStockScreener', [
+    return Inertia::render('SubscribeStockScreener', [
         'intent' => $request->user()->createSetupIntent(),
         'stripe_public_key' => config('services.stripe.key'),
         'product_id' => config('services.stripe.products.stock-screener.product_id')

@@ -1,7 +1,9 @@
 <template>
     <input ref="holder" type="text">
 
-    <div id="card-element"></div>
+    <div id="card-element">
+        <!-- Stripe Elements Placeholder -->
+    </div>
 
     <button ref="button" @click="handle" data-secret="{{ intent.client_secret }}">
         Subscribe
@@ -14,7 +16,9 @@ import {defineComponent} from 'vue'
 export default defineComponent({
     data() {
         return {
-            card : undefined
+            card : undefined,
+            stripe : undefined,
+            elements: undefined
         }
     },
 
@@ -24,17 +28,11 @@ export default defineComponent({
     },
 
     mounted: function () {
-        this.card = this.elements.create('card')
-        this.card.mount(this.$refs.card);
-    },
+        this.stripe = Stripe(this.stripe_public_key)
+        this.elements = this.stripe.elements()
 
-    computed : {
-      stripe() {
-          return Stripe(this.stripe_public_key)
-      },
-      elements() {
-          return this.stripe().elements
-      }
+        this.card = this.elements.create('card')
+        this.card.mount('#card-element');
     },
 
     methods : {
