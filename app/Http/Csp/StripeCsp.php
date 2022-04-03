@@ -13,11 +13,12 @@ class StripeCsp extends Policy
     {
         $this->addDirective(Directive::BASE, Keyword::SELF)
             ->addDirective(Directive::DEFAULT, Keyword::SELF)
-            ->addDirective(Directive::CONNECT, 'https://api.stripe.com')
-            ->addDirective(Directive::STYLE, [Keyword::SELF, 'fonts.googleapis.com'])
-            ->addDirective(Directive::FONT, 'fonts.gstatic.com')
-            ->addDirective(Directive::FRAME, 'https://js.stripe.com https://hooks.stripe.com')
-            ->addDirective(Directive::SCRIPT, [Keyword::SELF, Keyword::UNSAFE_INLINE, Keyword::UNSAFE_EVAL, 'https://js.stripe.com' ])
+            ->addDirective(Directive::CONNECT, Keyword::SELF)
+            ->addDirective(Directive::STYLE, Keyword::SELF)
+            ->addDirective(Directive::FONT, Keyword::SELF)
+            ->addDirective(Directive::FRAME, Keyword::SELF)
+            ->addDirective(Directive::SCRIPT, Keyword::SELF)
+            ->addNonceForDirective(Directive::STYLE)
             ->addNonceForDirective(Directive::SCRIPT);
     }
 }

@@ -7,21 +7,17 @@
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link nonce="{{ csp_nonce() }}" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <link nonce="{{ csp_nonce() }}" rel="stylesheet" href="{{ mix('css/app.css') }}">
 
         <!-- Scripts -->
         @routes
         <script nonce="{{ csp_nonce() }}" src="https://js.stripe.com/v3/"></script>
-        <script src="{{ mix('js/app.js') }}" defer></script>
+        <script nonce="{{ csp_nonce() }}" src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
         @inertia
-
-        @env ('local')
-            <script src="http://localhost:3000/browser-sync/browser-sync-client.js"></script>
-        @endenv
     </body>
 </html>

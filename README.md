@@ -3,6 +3,11 @@ Main tools :
  * JetStream
  * Inertia ("SSR" for Laravel + Vue)
  * Cashier (Stripe Integration)
+
+## Stripe
+* Stripe has 2 environments (TEST AND PRODUCTION
+* Stripe checkout require webhooks (use ngrok for test integration)
+ - php artisan cashier:webhook --url "https://bfef-70-81-68-170.ngrok.io/stripe/webhook"
  
 ## Onboarding
 
@@ -48,13 +53,26 @@ npm run watch
 ```
 
 ### TODO : Next up
-* Ensure user can manage his subscription (billing portal)
-* Redirect to billing portal
-* Add pay-to-access functionality - checkForActiveSubscriptionMiddleware
-* inspect stripe portal
+* Manage user subscription (billing portal)
+  * on dashboard too ?
+  * inspect stripe portal
+* laravel logo in reset password
+* add inertia tests ? (redirects, middleware...)
 
+Double check on :
+* CORS
+* CSP
 
-### UI 
+### Backend
+* Backup mysql database
+* user data sync Application <=> Stripe
+* Redis
+    - cache financial data
+    - webhooks ?
+* SCA - Strong customer authentication
+* Taxes
+
+### UI
 * Add summary data
     * outstanding shares
     * operating cash flow
@@ -64,17 +82,6 @@ npm run watch
 * Separate ticker country / ticker ?
 * text input for ticker
 * select input for country
-
-
-### Backend
-* Backup mysql database
-* user data sync Application <=> Stripe
-* Webhooks
-* Redis 
-    -add job support (start with mail)
-    -cache quickfs-statements
-* SCA - Strong customer authentication
-* Taxes
 
 ### Tests
 * Stripe mountebank

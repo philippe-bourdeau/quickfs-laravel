@@ -41,7 +41,8 @@ return [
                 'product_id' => env('STRIPE_SCREENER_PRODUCT_ID'),
                 'price_id' => env('STRIPE_SCREENER_PRICE_ID'),
                 'payment_endpoint' => '/stock-screener/subscription/form',
-                'handle_endpoint' => '/stock-screener/subscription/handle'
+                'handle_endpoint' => '/stock-screener/subscription/handle',
+                'checkout' => '/stock-screener/checkout',
             ]
         ]
     ]

@@ -2,11 +2,10 @@
 
 use App\Http\Controllers\QuickFsController;
 use App\Http\Middleware\QuickFs\EnsureStockScreenerSubscriptionActive;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Laravel\Cashier\Exceptions\IncompletePayment;
+use Laravel\Cashier\Billable;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,47 +23,30 @@ Route::get('/', function () {
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
     ]);
-});
+})->name('home');
+
 Route::middleware([
     'auth:sanctum',
     'verified',
     EnsureStockScreenerSubscriptionActive::class
-])->get('/dashboard',     [
+])->get('/dashboard', [
     QuickFsController::class,
     'dashboard'
 ])->name('dashboard');
 
-Route::middleware([
-    'auth:sanctum',
-    'verified',
-])->get(config('services.stripe.products.stock-screener.payment_endpoint'), function (Request $request) {
-    return Inertia::render('SubscribeStockScreener', [
-        'intent' => $request->user()->createSetupIntent(),
-        'stripe_public_key' => config('services.stripe.key'),
-        'product_id' => config('services.stripe.products.stock-screener.product_id')
-    ]);
-});
-
-Route::middleware([
-    'auth:sanctum',
-    'verified',
-])->post(config('services.stripe.products.stock-screener.handle_endpoint'), function (Request $request) {
-    try {
-        /** @var User $user */
-        $user = $request->user();
-        $user->newSubscription(
+Route::get(config('services.stripe.products.stock-screener.checkout'), function (Request $request) {
+    /** @var Billable $user */
+    $user = $request->user();
+    return $user
+        ->newSubscription(
             config('services.stripe.products.stock-screener.product_id'),
             config('services.stripe.products.stock-screener.price_id')
-        )->create($request->paymentMethodId);
-
-        return redirect()->route('dashboard');
-    } catch (IncompletePayment $exception) {
-        return redirect()->route(
-            'cashier.payment',
-            [$exception->payment->id, 'redirect' => route('home')]
-        );
-    }
-});
+        )
+        ->checkout([
+            'success_url' => route('home'),
+            'cancel_url' => route('home'),
+        ]);
+})->name('checkout');
 
 Route::middleware([
     'auth:sanctum',
