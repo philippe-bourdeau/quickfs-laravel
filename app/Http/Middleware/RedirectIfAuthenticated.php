@@ -25,7 +25,9 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
                 return Inertia::render(
                     'Dashboard',
-                    []
+                    [
+                        'summary' => []
+                    ]
                 );
             }
         }
