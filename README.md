@@ -1,6 +1,6 @@
 # Introduction
 This is an inertia app (think "modern monolith" !)
-*  Always return Inertia responses, not the usual 
+*  Always return Inertia responses, not the usual Illuminate\Http\Response
 
 ## Main tools
  * Laravel (backend framework)
@@ -18,6 +18,9 @@ This is an inertia app (think "modern monolith" !)
 ngrok http 8080
 php artisan cashier:webhook --url "https://bfef-70-81-68-170.ngrok.io/stripe/webhook"
 ``` 
+
+### Known limitations
+* Cashier has a basic implementation of webhooks (ex. customer.updated only updates default payment method - not user info)
 
 ## Onboarding
 ```sh
@@ -49,12 +52,6 @@ npm run watch
 ```
 
 ### TODO : Next up
-* Tests 
-  * Inertia responses ?
-  * Stripe test clocks
-  * Stripe mocks ?
-
-* tester portail stripe 
 * Landing page ; revoir page accueil ; menu dashboard vs landing page (connnecté / non-connecté ... )
 * message si webhook pending ? https://laravel.com/docs/8.x/billing#stripe-checkout-subscriptions-and-webhooks
 
@@ -64,12 +61,16 @@ Double check on :
 
 ### Backend
 * Backup mysql database
-* améliorer webhooks : user data sync limité (ex. customer.update vise seulement la méthode de paiment @see WebhookController )  - extend Webhook Controller
-* Redis cache & queue
-* Logger webhooks ?
+* Tests
+  * Inertia responses ?
+  * Stripe test clocks
+  * Stripe mocks ?
+* Redis cache & queue (dispatch events when receiving webhook OR user update, etc.)
+* Logger webhooks / events
 * Taxes
 
 ### UI & prod
+* checkout billing portal returns to home instead of returning to last page before entering portal (i.e. dashboard)
 * Add summary data
     * outstanding shares
     * operating cash flow
