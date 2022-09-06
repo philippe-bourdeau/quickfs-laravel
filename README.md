@@ -1,20 +1,25 @@
-Main tools : 
- * Laravel
- * JetStream
- * Inertia ("SSR" for Laravel + Vue)
- * Cashier (Stripe Integration)
+# Introduction
+This is an inertia app (think "modern monolith" !)
+*  Always return Inertia responses, not the usual 
+
+## Main tools
+ * Laravel (backend framework)
+ * JetStream (laravel "starter kit" bundle : auth, profile management etc.)
+ * Vue.js (frontend framework)
+ * Inertia (Adapter for Laravel + Vue)
+ * Cashier (Stripe Checkout Integration)
  * Ngrok (for development - provides tunnel for Stripe webhooks)
 
 ## Stripe
-* Stripe has 2 environments (TEST AND PRODUCTION)
+* Checkout integration
 * Stripe checkout REQUIRES webhooks
-* Specify webhook url in development (have to run it every time you open a new ngrok tunnel)
+* Webhook url in development ***have to run it every time you open a new ngrok tunnel***
 ```shell
 ngrok http 8080
 php artisan cashier:webhook --url "https://bfef-70-81-68-170.ngrok.io/stripe/webhook"
 ``` 
-## Onboarding
 
+## Onboarding
 ```sh
 composer install
 php artisan migrate
@@ -23,25 +28,13 @@ php artisan migrate
 ## Tests
 
 ### PHP tests with debugger
-Install XDEBUG locally and update configuration (pecl install xdebug, modify local php.ini,etc.)
 ```shell
-XDEBUG_TRIGGER=yes ./vendor/bin/phpunit -c phpunit.xml
+XDEBUG_TRIGGER=yes ./vendor/bin/phpunit
 ```
 
 ### Javascript tests
 ```shell
-docker exec -it cli sh
 npm test
-```
-
-## Helpers
-source docker/bin/tools.sh for project related helper functions
-
-
-## Run the application
-
-```shell
-docker exec -it cli sh
 ```
 
 ```sh
@@ -56,11 +49,14 @@ npm run watch
 ```
 
 ### TODO : Next up
-* Manage user subscription (billing portal)
-  * on dashboard too ?
-  * inspect stripe portal
-* laravel logo in reset password
-* add inertia tests ? (redirects, middleware...)
+* Tests 
+  * Inertia responses ?
+  * Stripe test clocks
+  * Stripe mocks ?
+
+* tester portail stripe 
+* Landing page ; revoir page accueil ; menu dashboard vs landing page (connnecté / non-connecté ... )
+* message si webhook pending ? https://laravel.com/docs/8.x/billing#stripe-checkout-subscriptions-and-webhooks
 
 Double check on :
 * CORS
@@ -68,10 +64,9 @@ Double check on :
 
 ### Backend
 * Backup mysql database
-* user data sync Application <=> Stripe
-* Redis
-    - cache financial data
-* SCA - Strong customer authentication
+* améliorer webhooks : user data sync limité (ex. customer.update vise seulement la méthode de paiment @see WebhookController )  - extend Webhook Controller
+* Redis cache & queue
+* Logger webhooks ?
 * Taxes
 
 ### UI & prod
@@ -80,7 +75,6 @@ Double check on :
     * operating cash flow
 * Improve top form readability(with market cap)
 * Improve display for intrinsic value
-* Landing page
 * Separate ticker country / ticker ?
 * text input for ticker
 * select input for country

@@ -43,7 +43,7 @@ Route::get(config('services.stripe.products.stock-screener.checkout'), function 
             config('services.stripe.products.stock-screener.price_id')
         )
         ->checkout([
-            'success_url' => route('home'),
+            'success_url' => route('dashboard'),
             'cancel_url' => route('home'),
         ]);
 })->name('checkout');
