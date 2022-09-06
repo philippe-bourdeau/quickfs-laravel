@@ -52,5 +52,5 @@ Route::middleware([
     'auth:sanctum',
     'verified',
 ])->get('/stripe-billing-portal', function (Request $request) {
-    return $request->user()->redirectToBillingPortal(route('dashboard'));
+    return Inertia::location($request->user()->billingPortalUrl());
 })->name('stripe-billing-portal');
