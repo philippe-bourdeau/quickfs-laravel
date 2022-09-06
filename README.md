@@ -22,11 +22,19 @@ php artisan cashier:webhook --url "https://bfef-70-81-68-170.ngrok.io/stripe/web
 ### Known limitations
 * Cashier has a basic implementation of webhooks (ex. customer.updated only updates default payment method - not user info)
 
-## Onboarding
+## Run the app
+
 ```sh
 composer install
 php artisan migrate
+ngrok http 8080
+# Jump in container and run
+docker exec -it cli sh
+npm run dev
+php artisan cache clear
+php artisan cashier:webhook --url "https://b896-70-81-68-170.ngrok.io"
 ```
+Then configure endpoint on Stripe dashboard
 
 ## Tests
 
@@ -52,7 +60,8 @@ npm run watch
 ```
 
 ### TODO : Next up
-* Landing page ; revoir page accueil ; menu dashboard vs landing page (connnecté / non-connecté ... )
+* Revoir landing page et menu
+* Menu dashboard
 * message si webhook pending ? https://laravel.com/docs/8.x/billing#stripe-checkout-subscriptions-and-webhooks
 
 Double check on :
