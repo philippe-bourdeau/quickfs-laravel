@@ -25,6 +25,8 @@ RUN addgroup -g 1000 -S docker-www-data; \
     adduser -u 1000 -D -S -G docker-www-data docker-www-data
 
 COPY . /var/www/html
+
+RUN composer install --no-dev
 RUN chown docker-www-data -R /var/www/html
 USER docker-www-data
 

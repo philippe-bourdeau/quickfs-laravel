@@ -23,6 +23,13 @@ php artisan cashier:webhook --url "https://bfef-70-81-68-170.ngrok.io/stripe/web
 * Cashier has a basic implementation of webhooks (ex. customer.updated only updates default payment method - not user info)
 * Generating tls certificates / dhparam.pem and onboarding those files in the nginx container has to be done manually 
 
+### First time
+* generate tls cert & key (certbot) ; dhparam
+* composer install
+* npm install
+* migration
+* .env file
+
 ## Run the app
 To launch the containers with appropriate dockerfile
 ```sh
