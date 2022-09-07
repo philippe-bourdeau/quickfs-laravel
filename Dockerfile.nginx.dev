@@ -1,0 +1,4 @@
+FROM nginx:1.23-alpine-perl
+
+COPY ./deploy/nginx/dev.conf /etc/nginx/nginx.conf
+COPY . /var/www/html

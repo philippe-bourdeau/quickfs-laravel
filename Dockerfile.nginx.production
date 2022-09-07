@@ -1,4 +1,4 @@
 FROM nginx:1.23-alpine-perl
 
-COPY docker/nginx/prod.fpm.conf /etc/nginx/nginx.conf
+COPY ./deploy/nginx/prod.conf /etc/nginx/nginx.conf
 COPY . /var/www/html
