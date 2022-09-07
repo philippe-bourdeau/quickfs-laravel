@@ -3,7 +3,7 @@ FROM nginx:1.23-alpine-perl
 COPY ./deploy/nginx/prod.conf /etc/nginx/nginx.conf
 COPY . /var/www/html
 
-# depends on the actual path on the host
+# depends on the actual path on the host; manually copy the files to repository after generating them with certbot
 COPY ./deploy/nginx/cert.pem /etc/letsencrypt/live/cloudhelp.ca/fullchain.pem
 COPY ./deploy/nginx/key.pem /etc/letsencrypt/live/cloudhelp.ca/privkey.pem
 COPY ./deploy/nginx/dhparam4096.pem /etc/letsencrypt/live/cloudhelp.ca/dhparam4096.pem
