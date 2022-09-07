@@ -4,8 +4,8 @@ COPY ./deploy/nginx/prod.conf /etc/nginx/nginx.conf
 COPY . /var/www/html
 
 # depends on the actual path on the host
-COPY /etc/letsencrypt/live/cloudhelp.ca/fullchain.pem /etc/letsencrypt/live/cloudhelp.ca/fullchain.pem
-COPY /etc/letsencrypt/live/cloudhelp.ca/privkey.pem /etc/letsencrypt/live/cloudhelp.ca/privkey.pem
-COPY /home/pbb/dhparam4096.pem /etc/letsencrypt/live/cloudhelp.ca/dhparam4096.pem
+COPY cert.pem /etc/letsencrypt/live/cloudhelp.ca/fullchain.pem
+COPY key.pem /etc/letsencrypt/live/cloudhelp.ca/privkey.pem
+COPY dhparam4096.pem /etc/letsencrypt/live/cloudhelp.ca/dhparam4096.pem
 
 # generate dhparams openssl dhparam -out dhparam4096.pem 4096
