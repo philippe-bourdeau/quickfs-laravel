@@ -23,6 +23,10 @@ php artisan cashier:webhook --url "https://bfef-70-81-68-170.ngrok.io/stripe/web
 * Cashier has a basic implementation of webhooks (ex. customer.updated only updates default payment method - not user info)
 
 ## Run the app
+To launch the containers with appropriate dockerfile
+```sh
+docker-compose -f docker-compose.production.yml up --build
+```
 
 ```sh
 composer install

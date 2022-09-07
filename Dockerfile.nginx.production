@@ -2,3 +2,9 @@ FROM nginx:1.23-alpine-perl
 
 COPY ./deploy/nginx/prod.conf /etc/nginx/nginx.conf
 COPY . /var/www/html
+
+# depends on the actual path on the host
+COPY /etc/letsencrypt/live/cloudhelp.ca/fullchain.pem /etc/letsencrypt/live/cloudhelp.ca/fullchain.pem
+COPY /etc/letsencrypt/live/cloudhelp.ca/privkey.pem /etc/letsencrypt/live/cloudhelp.ca/privkey.pem
+
+# generate dhparams openssl dhparam -out dhparam4096.pem 4096
