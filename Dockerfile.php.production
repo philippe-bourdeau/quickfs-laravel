@@ -10,7 +10,6 @@ RUN apk add --no-cache --update --virtual buildDeps \
 
 RUN pecl install redis
 RUN docker-php-ext-enable redis
-COPY ./deploy/php-fpm/redis.ini /usr/local/etc/php/conf.d/redis.ini
 
 RUN docker-php-ext-install mysqli pdo pdo_mysql && \
     docker-php-ext-enable pdo_mysql

@@ -21,6 +21,7 @@ php artisan cashier:webhook --url "https://bfef-70-81-68-170.ngrok.io/stripe/web
 
 ### Known limitations
 * Cashier has a basic implementation of webhooks (ex. customer.updated only updates default payment method - not user info)
+* Generating tls certificates / dhparam.pem and onboarding those files in the nginx container has to be done manually 
 
 ## Run the app
 To launch the containers with appropriate dockerfile
@@ -96,3 +97,11 @@ Double check on :
 * Separate ticker country / ticker ?
 * text input for ticker
 * select input for country
+
+
+
+Warning: Module "redis" is already loaded in Unknown on line 0
+
+In StreamHandler.php line 146:
+
+The stream or file "/var/www/html/storage/logs/laravel.log" could not be opened in append mode: Failed to open stream: Permission denied  
