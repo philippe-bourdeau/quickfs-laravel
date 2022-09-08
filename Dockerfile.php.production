@@ -30,6 +30,7 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql && \
 RUN apk del buildDeps
 
 COPY --from=step2 /app /var/www/html
+COPY ./deploy/php-fpm/extras.conf /usr/local/etc/php-fpm.d/zzz-custom.conf
 
 EXPOSE 9000
 CMD ["php-fpm"]
