@@ -8,9 +8,3 @@ COPY . /var/www/html
 COPY ./deploy/nginx/cert.pem /usr/local/share/ca-certificates/fullchain.pem
 COPY ./deploy/nginx/key.pem /usr/local/share/ca-certificates/privkey.pem
 COPY ./deploy/nginx/dhparam4096.pem /usr/local/share/ca-certificates/dhparam4096.pem
-
-RUN addgroup -g 1000 -S docker-www-data; \
-    adduser -u 1000 -D -S -G docker-www-data docker-www-data
-
-RUN chown docker-www-data -R /var/www/html
-USER docker-www-data
