@@ -74,10 +74,15 @@ npm run watch
 ```
 
 ### TODO : Next up
+email verified
 check ports
+ * 9000 (php-fpm)
+ * 80 http
+ * 443 https
+ * 3306 (my-squirrel)
 Double check on :
-* CORS
-* CSP
+ * CORS
+ * CSP
 
 ### Backend
 * Backup mysql database
