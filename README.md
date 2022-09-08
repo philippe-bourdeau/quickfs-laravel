@@ -75,15 +75,10 @@ npm run watch
 
 ### TODO : Next up
 * Backup mysql database
-email verified
-check ports
- * 9000 (php-fpm)
- * 80 http
- * 443 https
- * 3306 (my-squirrel)
-Double check on :
- * CORS
- * CSP
+* email verified
+* Double check on
+  * CORS
+  * CSP
 
 ### Backend
 * Tests
@@ -109,11 +104,3 @@ Double check on :
 * Separate ticker country / ticker ?
 * text input for ticker
 * select input for country
-
-
-
-Warning: Module "redis" is already loaded in Unknown on line 0
-
-In StreamHandler.php line 146:
-
-The stream or file "/var/www/html/storage/logs/laravel.log" could not be opened in append mode: Failed to open stream: Permission denied  
