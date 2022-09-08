@@ -5,12 +5,6 @@ COPY . /app
 RUN composer install --no-dev && \
 composer dumpautoload --optimize
 
-FROM node:16-alpine AS step2
-COPY --from=step1 /app /app
-WORKDIR /app
-RUN npm install && \
-npm run prod
-
 FROM php:8.0-fpm-alpine AS final
 
 RUN apk add --no-cache --update --virtual buildDeps \
@@ -31,7 +25,7 @@ RUN apk del buildDeps
 
 RUN chown -R www-data:www-data /var/www/html
 
-COPY --from=step2 /app /var/www/html
+COPY --from=step1 /app /var/www/html
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 COPY ./deploy/php-fpm/extras.conf /usr/local/etc/php-fpm.d/zzz-custom.conf
 
