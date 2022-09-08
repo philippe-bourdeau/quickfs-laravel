@@ -4,7 +4,3 @@ COPY ./deploy/nginx/prod.conf /etc/nginx/nginx.conf
 COPY . /var/www/html
 
 # depends on the actual path on the host; manually copy the files to repository after generating them with certbot
-
-COPY ./deploy/nginx/cert.pem /usr/local/share/ca-certificates/fullchain.pem
-COPY ./deploy/nginx/key.pem /usr/local/share/ca-certificates/privkey.pem
-COPY ./deploy/nginx/dhparam4096.pem /usr/local/share/ca-certificates/dhparam4096.pem
