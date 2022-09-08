@@ -29,8 +29,8 @@ COPY ./deploy/php-fpm/extras.conf /usr/local/etc/php-fpm.d/zzz-custom.conf
 
 RUN chown -R www-data:www-data /var/www/html
 
-php artisan cache:clear
-php artisan migrate
+RUN php artisan cache:clear && \
+php artisan migrate && \
 php artisan cashier:webhook --url "https://cloudhelp.ca/stripe/webhook"
 
 EXPOSE 9000
