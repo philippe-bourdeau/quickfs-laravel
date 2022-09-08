@@ -74,6 +74,7 @@ npm run watch
 ```
 
 ### TODO : Next up
+* Backup mysql database
 email verified
 check ports
  * 9000 (php-fpm)
@@ -85,7 +86,6 @@ Double check on :
  * CSP
 
 ### Backend
-* Backup mysql database
 * Tests
   * Inertia responses ?
   * Stripe test clocks
