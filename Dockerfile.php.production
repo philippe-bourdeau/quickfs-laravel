@@ -31,11 +31,5 @@ RUN apk del buildDeps
 
 COPY --from=step2 /app /var/www/html
 
-RUN addgroup -g 1000 -S docker-www-data; \
-    adduser -u 1000 -D -S -G docker-www-data docker-www-data
-
-RUN chown docker-www-data -R /var/www/html
-USER docker-www-data
-
 EXPOSE 9000
 CMD ["php-fpm"]
