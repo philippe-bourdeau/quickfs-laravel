@@ -18,17 +18,15 @@ class EnsureStockScreenerSubscriptionActive
      */
     public function handle($request, Closure $next)
     {
-        $endpoint = config('services.stripe.products.stock-screener.checkout');
-
         /** @var User $user */
         $user = $request->user();
         if (!$user->subscribed(config('services.stripe.products.stock-screener.product_id'))) {
-            return Inertia::location($endpoint);
+            return Inertia::location('/subscription');
         }
 
         if ($user->subscription(config('services.stripe.products.stock-screener.product_id'))
             ->hasIncompletePayment()) {
-            return Inertia::location($endpoint);
+            return Inertia::location('/subscription');
         }
 
         return $next($request);

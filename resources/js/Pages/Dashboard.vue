@@ -1,4 +1,4 @@
-\<template>
+<template>
     <app-layout title="Dashboard">
         <template #header>
             <ticker-form :summary="summary"/>

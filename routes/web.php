@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\QuickFsController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Middleware\QuickFs\EnsureStockScreenerSubscriptionActive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,8 @@ Route::middleware([
     QuickFsController::class,
     'dashboard'
 ])->name('dashboard');
+
+Route::get('/subscription', SubscriptionController::class)->name('subscription');
 
 Route::get(config('services.stripe.products.stock-screener.checkout'), function (Request $request) {
     /** @var Billable $user */
