@@ -92,11 +92,8 @@ npm run watch
 * update php 8.1
 
 ### UI & prod
-* Revoir landing page et menu
+* Revoir landing page et menu ; navigation vers home sur dashboard ?
 * message si webhook pending ? https://laravel.com/docs/8.x/billing#stripe-checkout-subscriptions-and-webhooks
-* améliorer redirections après achat ou registration
-    * éviter la page home et retourner directement sur dashboard
-    * en ce moment fonctionne mais casse sur la page register si loggé (redirige vers dashboard)
 * checkout billing portal returns to home instead of returning to last page before entering portal (i.e. dashboard)
 * Add summary data
     * outstanding shares
