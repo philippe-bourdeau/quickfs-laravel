@@ -10,7 +10,6 @@ RUN apk add --no-cache --update --virtual buildDeps \
 
 RUN pecl install redis
 RUN docker-php-ext-enable redis
-COPY ./deploy/php-fpm/redis.ini /usr/local/etc/php/conf.d/redis.ini
 
 RUN docker-php-ext-install mysqli pdo pdo_mysql && \
     docker-php-ext-enable pdo_mysql
@@ -26,11 +25,9 @@ RUN pecl install xdebug && \
 
 RUN apk del buildDeps
 
-RUN addgroup -g 1000 -S docker-www-data; \
-    adduser -u 1000 -D -S -G docker-www-data docker-www-data
-USER docker-www-data
-
 COPY . /var/www/html
+
+RUN composer install --no-dev
 
 EXPOSE 9000
 CMD ["php-fpm"]

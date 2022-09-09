@@ -1,4 +1,10 @@
-FROM nginx:1.23-alpine-perl
+FROM node:16-alpine AS build
+COPY . /app
+WORKDIR /app
+RUN npm install && \
+npm run dev
 
+FROM nginx:1.23-alpine-perl AS final
+
+COPY --from=build /app /var/www/html
 COPY ./deploy/nginx/dev.conf /etc/nginx/nginx.conf
-COPY . /var/www/html
