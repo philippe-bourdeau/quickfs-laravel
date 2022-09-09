@@ -6,6 +6,9 @@
         <jet-button class="mt-4" @click.native="checkout">
             Head to the checkout page
         </jet-button>
+        <jet-button class="mt-4" @click.native="home">
+            Back to Home
+        </jet-button>
     </div>
 </template>
 
@@ -39,6 +42,9 @@ export default defineComponent({
                 .redirectToCheckout({
                     sessionId: this.sessionId,
                 })
+        },
+        home() {
+            window.location = '/'
         },
     },
 });

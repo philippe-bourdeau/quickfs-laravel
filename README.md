@@ -88,6 +88,8 @@ npm run watch
 * Redis cache & queue (dispatch events when receiving webhook OR user update, etc.)
 * Logger webhooks / events
 * Taxes
+* update node container
+* update php 8.1
 
 ### UI & prod
 * Revoir landing page et menu

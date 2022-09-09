@@ -21,12 +21,12 @@ class EnsureStockScreenerSubscriptionActive
         /** @var User $user */
         $user = $request->user();
         if (!$user->subscribed(config('services.stripe.products.stock-screener.product_id'))) {
-            return Inertia::location('/subscription');
+            return Inertia::location(route('subscription'));
         }
 
         if ($user->subscription(config('services.stripe.products.stock-screener.product_id'))
             ->hasIncompletePayment()) {
-            return Inertia::location('/subscription');
+            return Inertia::location(route('subscription'));
         }
 
         return $next($request);

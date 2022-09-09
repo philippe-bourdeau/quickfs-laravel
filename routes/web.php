@@ -35,7 +35,8 @@ Route::middleware([
     'dashboard'
 ])->name('dashboard');
 
-Route::get('/subscription', SubscriptionController::class)->name('subscription');
+Route::get('/subscription', SubscriptionController::class)
+    ->name('subscription');
 
 Route::get(config('services.stripe.products.stock-screener.checkout'), function (Request $request) {
     /** @var Billable $user */
@@ -47,7 +48,7 @@ Route::get(config('services.stripe.products.stock-screener.checkout'), function 
         )
         ->checkout([
             'success_url' => route('dashboard'),
-            'cancel_url' => route('home'),
+            'cancel_url' => route('dashboard'),
         ]);
 })->name('checkout');
 
@@ -55,5 +56,5 @@ Route::middleware([
     'auth:sanctum',
     'verified',
 ])->get('/stripe-billing-portal', function (Request $request) {
-    return Inertia::location($request->user()->billingPortalUrl());
+    return Inertia::location($request->user()->billingPortalUrl(route('dashboard')));
 })->name('stripe-billing-portal');
