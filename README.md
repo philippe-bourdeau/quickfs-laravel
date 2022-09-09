@@ -24,9 +24,9 @@ php artisan cashier:webhook --url "https://bfef-70-81-68-170.ngrok.io/stripe/web
 * Generating tls certificates / dhparam.pem and onboarding those files in the nginx container has to be done manually 
 
 ### First time
-* generate tls cert & key (certbot) ; dhparam
+* generate tls cert & key (certbot) & ssl_dhparam
 * composer install
-* npm install
+* npm run prod
 * migration
 * .env file
 

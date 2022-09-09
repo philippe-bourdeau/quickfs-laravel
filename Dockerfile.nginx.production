@@ -1,12 +1,13 @@
 FROM node:16-alpine AS build
-COPY . /app
-WORKDIR /app
+
+COPY . /build
+WORKDIR /build
 RUN npm install && \
 npm run prod
 
 FROM nginx:1.23-alpine-perl AS final
 
-COPY --from=build /app /var/www/html
+COPY --from=build /build /var/www/html
 COPY ./deploy/nginx/prod.conf /etc/nginx/nginx.conf
 
 # depends on the actual path on the host; manually copy the files to repository after generating them with certbot

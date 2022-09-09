@@ -1,4 +1,11 @@
-FROM php:8.0-fpm-alpine
+FROM composer AS build
+WORKDIR /build
+
+COPY . /build
+RUN composer install --no-dev && \
+composer dumpautoload --optimize
+
+FROM php:8.0-fpm-alpine AS final
 
 RUN apk add --no-cache --update --virtual buildDeps \
     autoconf \
@@ -14,20 +21,14 @@ RUN docker-php-ext-enable redis
 RUN docker-php-ext-install mysqli pdo pdo_mysql && \
     docker-php-ext-enable pdo_mysql
 
-RUN curl -s http://getcomposer.org/installer | php && \
-    mv composer.phar /usr/local/bin/composer
-
-RUN apk add --update nodejs npm
-
 COPY ./deploy/php-fpm/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 RUN pecl install xdebug && \
  docker-php-ext-enable xdebug;
 
 RUN apk del buildDeps
 
-COPY . /var/www/html
-
-RUN composer install --no-dev
+COPY --from=build /build /var/www/html
+RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 9000
 CMD ["php-fpm"]
