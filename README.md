@@ -81,6 +81,7 @@ npm run watch
   * CSP
 
 ### Backend
+* CI/CD
 * Tests
   * Inertia responses ?
   * Stripe test clocks
