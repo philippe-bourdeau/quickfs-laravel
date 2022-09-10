@@ -21,14 +21,21 @@ RUN docker-php-ext-enable redis
 RUN docker-php-ext-install mysqli pdo pdo_mysql && \
     docker-php-ext-enable pdo_mysql
 
+
 COPY ./deploy/php-fpm/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
-RUN pecl install xdebug && \
- docker-php-ext-enable xdebug;
+ARG XDEBUG_ON
+RUN if [[ "$XDEBUG_ON" == '1' ]]; then \
+  pecl install xdebug && \
+  docker-php-ext-enable xdebug; \
+fi
 
 RUN apk del buildDeps
 
 COPY --from=build /build /var/www/html
 RUN chown -R www-data:www-data /var/www/html
+
+RUN php artisan cache:clear && \
+php artisan config:cache
 
 EXPOSE 9000
 CMD ["php-fpm"]

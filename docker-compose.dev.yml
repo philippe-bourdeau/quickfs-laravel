@@ -6,6 +6,8 @@ services:
     build:
         context: .
         dockerfile: Dockerfile.php.dev
+        args:
+          XDEBUG_ON: 0
     restart: unless-stopped
   nginx:
     container_name: nginx
