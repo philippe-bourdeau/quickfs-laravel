@@ -41,6 +41,7 @@ docker-compose -f docker-compose.production.yml up --build
 ```
 
 ## Configure Stripe webhook with cashier command
+*** Required to be done on each container start ***
 1. This command will create a webhook on the stripe api, will listen only to relevant events
 ```shell
 php artisan cashier:webhook --url "https://b896-70-81-68-170.ngrok.io/stripe/webhook"
@@ -71,8 +72,11 @@ npm run watch
 ```
 
 ### TODO : Next up
+* Add checkout success page
+* Vérification expiration
+* Free trial
+* Email verified
 * Backup mysql database
-* email verified
 * Double check on
   * CORS
   * CSP
@@ -90,8 +94,7 @@ npm run watch
 * update php 8.1
 
 ### UI & prod
-* Add checkout success page
-* Revoir landing page et menu ; navigation vers home sur dashboard ?
+* Améliorer navigation, menu et layouts
 * message si webhook pending ? https://laravel.com/docs/8.x/billing#stripe-checkout-subscriptions-and-webhooks
 * Add summary data
     * outstanding shares
