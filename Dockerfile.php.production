@@ -31,7 +31,7 @@ RUN chown -R www-data:www-data /var/www/html
 
 RUN php artisan cache:clear && \
 php artisan config:cache && \
-php artisan cashier:webhook --url "https://cloudhelp.ca/stripe/webhook"
+php artisan route:cache
 
 EXPOSE 9000
 CMD ["php-fpm"]

@@ -3,7 +3,7 @@ This is an inertia app (think "modern monolith" !)
 *  Always return Inertia responses, not the usual Illuminate\Http\Response
 
 ## Main tools
- * Laravel (backend framework)
+ * [Laravel](https://laravel.com) : Web backend framework
  * JetStream (laravel "starter kit" bundle : auth, profile management etc.)
  * Vue.js (frontend framework)
  * Inertia (Adapter for Laravel + Vue)
@@ -24,11 +24,15 @@ php artisan cashier:webhook --url "https://bfef-70-81-68-170.ngrok.io/stripe/web
 * Generating tls certificates / dhparam.pem and onboarding those files in the nginx container has to be done manually 
 
 ### First time
+* publish assets (inertia and cashier assets)
 * generate tls cert & key (certbot) & ssl_dhparam
-* composer install
-* npm run prod
 * migration
-* .env file
+* adjust .env file
+
+## Start ngrok for local dev (webhook tunneling)
+```shell
+ngrok http 8080
+```
 
 ## Run the app
 To launch the containers with appropriate dockerfile
@@ -36,19 +40,12 @@ To launch the containers with appropriate dockerfile
 docker-compose -f docker-compose.production.yml up --build
 ```
 
-```sh
-composer install
-php artisan migrate
-ngrok http 8080
-# Jump in container and run
-docker exec -it cli sh
-npm run dev
-php artisan cache clear
-php artisan cashier:webhook --url "https://b896-70-81-68-170.ngrok.io"
+## Configure Stripe webhook with cashier command
+1. This command will create a webhook on the stripe api, will listen only to relevant events
+```shell
+php artisan cashier:webhook --url "https://b896-70-81-68-170.ngrok.io/stripe/webhook"
 ```
-Then 
-* configure endpoint on Stripe dashboard
-* copy webhook secret and set it in the .env file
+2. Go retrieve webhook secret on the Stripe dashboard, then put it in the .env file
 
 ## Tests
 
