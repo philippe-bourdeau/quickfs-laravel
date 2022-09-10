@@ -24,7 +24,7 @@
                 </Link>
             </template>
         </div>
-        <h1>Only 5$/month for the simplified valuation tool !</h1>
+        <h1>Only 1$/month for the simplified valuation tool !</h1>
     </div>
 </template>
 
