@@ -1,10 +1,10 @@
 <template>
-    <Head title="Welcome" />
+    <Head :title="Welcome" />
     <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
         <div v-if="canLogin" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
             <template v-if="$page.props.user">
                 <Link :href="route('dashboard')" class="text-sm text-gray-700 underline">
-                    Stock Screener
+                    Valuation tool
                 </Link>
                 <!-- Authentication -->
                 <form @submit.prevent="logout">
@@ -24,7 +24,7 @@
                 </Link>
             </template>
         </div>
-        <h1>Welcome to the stock market screener !</h1>
+        <h1>Only 5$/month for the simplified valuation tool !</h1>
     </div>
 </template>
 

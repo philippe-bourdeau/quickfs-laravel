@@ -14,7 +14,12 @@ class SubscriptionController extends Controller
                 config('services.stripe.products.stock-screener.product_id'),
                 config('services.stripe.products.stock-screener.price_id')
             )
-            ->checkout();
+            ->checkout(
+                [
+                    'success_url' => route('dashboard'),
+                    'cancel_url' => route('home'),
+                ]
+            );
 
         return Inertia::render('Subscription', [
             'stripeKey' => config('services.stripe.key'),

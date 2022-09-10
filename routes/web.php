@@ -6,7 +6,6 @@ use App\Http\Middleware\QuickFs\EnsureStockScreenerSubscriptionActive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Laravel\Cashier\Billable;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,20 +36,6 @@ Route::middleware([
 
 Route::get('/subscription', SubscriptionController::class)
     ->name('subscription');
-
-Route::get(config('services.stripe.products.stock-screener.checkout'), function (Request $request) {
-    /** @var Billable $user */
-    $user = $request->user();
-    return $user
-        ->newSubscription(
-            config('services.stripe.products.stock-screener.product_id'),
-            config('services.stripe.products.stock-screener.price_id')
-        )
-        ->checkout([
-            'success_url' => route('dashboard'),
-            'cancel_url' => route('dashboard'),
-        ]);
-})->name('checkout');
 
 Route::middleware([
     'auth:sanctum',

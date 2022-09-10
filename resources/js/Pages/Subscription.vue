@@ -3,10 +3,10 @@
         <h2 class="text-2xl font-bold">
             Hold up! You need an active subscription first.
         </h2>
-        <jet-button class="mt-4 mx-auto" style="color:green" @click.native="checkout">
+        <jet-button class="mt-4 mr-2" style="background-color:#22c55e" @click.native="checkout">
             To checkout
         </jet-button>
-        <jet-button class="mt-4 mx-auto" style="color:blue" @click.native="home">
+        <jet-button class="mt-4" style="background-color:#0ea5e9" @click.native="home">
             Back to Home
         </jet-button>
     </div>
@@ -50,3 +50,6 @@ export default defineComponent({
 });
 
 </script>
+
+<style scoped>
+</style>
