@@ -72,6 +72,7 @@ npm run watch
 ```
 
 ### TODO : Next up
+* Add dockerignore
 * Add checkout success page
 * Vérification expiration
 * Free trial
