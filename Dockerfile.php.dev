@@ -8,12 +8,10 @@ RUN apk add --no-cache --update --virtual buildDeps \
     g++ \
     zlib-dev
 
-RUN pecl install redis
-RUN docker-php-ext-enable redis
-
-RUN docker-php-ext-install mysqli pdo pdo_mysql && \
-    docker-php-ext-enable pdo_mysql
-
+RUN docker-php-ext-install mysqli \
+pdo \
+pdo_mysql
+RUN docker-php-ext-enable pdo_mysql
 
 COPY ./deploy/php-fpm/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 ARG XDEBUG_ON
@@ -23,9 +21,12 @@ RUN if [[ "$XDEBUG_ON" == '1' ]]; then \
 fi
 
 RUN apk del buildDeps
-
-COPY --from=composer /usr/bin/composer /usr/bin/composer
 COPY . /var/www/html
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+RUN composer install && \
+ composer dumpautoload
+
 RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 9000

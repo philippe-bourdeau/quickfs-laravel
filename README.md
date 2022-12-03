@@ -72,27 +72,36 @@ npm run watch
 ```
 
 ### TODO : Next up
+* update cashier
+* test navigation
+* Update TLS certs
+* Provide maintenance page ?
+* Log rotation (huge file now)
+* update node container
+* fix storage logs permissions when mounting volumes in dev (./:/var/www/html)
+
+### TODO list
 * Add dockerignore
-* Add checkout success page
-* Vérification expiration
-* Free trial
-* Email verified
+* Double opt-in
 * Backup mysql database
 * Double check on
   * CORS
   * CSP
 
 ### Backend
-* CI/CD
+* Automate deployment with CI/CD
 * Tests
   * Inertia responses ?
   * Stripe test clocks
   * Stripe mocks ?
-* Redis cache & queue (dispatch events when receiving webhook OR user update, etc.)
+
 * Logger webhooks / events
+
+### Features
+* Add checkout success page
+* Better sales page
 * Taxes
-* update node container
-* update php 8.1
+* Redis cache & queue (dispatch events when receiving webhook OR user update, etc.)
 
 ### UI & prod
 * Améliorer navigation, menu et layouts
@@ -105,3 +114,8 @@ npm run watch
 * Separate ticker country / ticker ?
 * text input for ticker
 * select input for country
+
+####
+* Update dependencies
+* Update cashier
+* Update php version !
