@@ -72,21 +72,27 @@ npm run watch
 ```
 
 ### TODO : Next up
+* Update php version
+* Update libraries
 * update cashier
 * test navigation
-* Update TLS certs
+* check free access for myself ? 5$ USD duh !
 * Provide maintenance page ?
 * Log rotation (huge file now)
 * update node container
+* update js dependencies (security problems)
 * fix storage logs permissions when mounting volumes in dev (./:/var/www/html)
 
 ### TODO list
-* Add dockerignore
+* Add .dockerignore
 * Double opt-in
 * Backup mysql database
+
+### Security
 * Double check on
-  * CORS
-  * CSP
+    * CORS
+    * CSP
+* Use certificates in /etc folder instead of moving to home (less secure, does not require root to read)
 
 ### Backend
 * Automate deployment with CI/CD
@@ -115,7 +121,61 @@ npm run watch
 * text input for ticker
 * select input for country
 
-####
-* Update dependencies
-* Update cashier
-* Update php version !
+### Certbot reference
+[reference](https://certbot.eff.org/instructions)
+Install certbot via snap
+```shell
+sudo snap install core; sudo snap refresh core
+sudo snap install --classic certbot
+sudo snap refresh certbot
+sudo certbot certonly --nginx
+sudo certbot certonly
+```
+
+Generate dhparam file
+```shell
+openssl dhparam -out dhparam4096.pem 4096
+```
+
+Copy files to deployment repository and adjust permissions
+```shell
+cd /etc/letsencrypt/live/
+mv cert.pem quickfs-laravel/deploy/nginx/
+mv key.pem quickfs-laravel/deploy/nginx/
+mv dhparam4096.pem quickfs-laravel/deploy/nginx/
+
+sudo chown pbb: cert.pem
+sudo chown pbb: key.pem 
+```
+
+#### Cert renewal
+
+Just renew certs and copy them to deploy directory
+
+```shell
+sudo certbot renew
+cp /etc/letsencrypt/live/cloudhelp.ca/fullchain.pem /home/pbb/quickfs-laravel/deploy/nginx/cert.pem
+cp /etc/letsencrypt/live/cloudhelp.ca/privkey.pem /home/pbb/quickfs-laravel/deploy/nginx/key.pem
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
